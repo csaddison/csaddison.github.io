@@ -1,36 +1,68 @@
-## Conner Addison
-You can use the [editor on GitHub](https://github.com/csaddison/csaddison.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## I'm following my passion for physics and mechanical design.
 
-### Markdown
+Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; working towards my degree in Physics while pursuing my love of design and practical engineering. I also write about the automotive community as well as document the world around me through photography. It's my goal to share my knowledge with tutorials and to make my work available to download and experience for oneself. Read to learn more about the impact I've made on more than 150,000 learners.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Also check out my ongoing projects:
 
-```markdown
-Syntax highlighted code block
+* Julia set fractal explorer GUI
+* Simulating hydralic erosion on procedularly generated terrain
+* Console & web-app based cellular automata
+* A* pathfinding simulation in procedularly generated mazes
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+# Skills
 
-1. Numbered
-2. List
+* Programming in Python, Mathematica, and SQL
+* 3D modeling in SolidWorks and Blender
+* FEA anlysis in COMSOL
+* 2D design, sketching, drafting, and photography
+* Rapid prototyping with 3D printing, CNC routing and fabricating
+* Circuit design and testing, analog and digital
+* Machine learning and cellular automaton simulations
+* Data analysis and signal processing
+* Compelling written, oral, and visual presentations 
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+# Experience
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### UC Berkeley CITRIS Labs
+Lab Technician
 
-### Jekyll Themes
+### Phil Reilly & Co.
+Database & IT Systems Administrator 
+Mechanical Technican
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/csaddison/csaddison.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Kasowitz, Benson, Torres & Friedman LLP
+Courtroom Evidentiary Intern
+Law Research Intern
 
-### Support or Contact
+### Paddock Ignition
+Editor & Lead Blogger
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
+# Projects
+
+### Asymptotic Analysis & its Applications in Financial Derivative Pricing of European Options with Stochastic Volatility 
+I authored a research paper about utilizing higher level math techniques to better estimate the price of European call options, which include regularly traded stocks. The information I learned in the process of writing the paper inspired me to continue the topic into a tractable machine learning program.
+
+### Sterling Schiff Design Channel
+I wanted to share the knowledge I've learned designing in both 2D and 3D programs, so I founded an educational YouTube channel that focuses on teaching CAD and rendering. Now the channel has expanded to over 60,000 viewers.
+
+### BlendSwap CAD Repository
+BlendSwap is a platform for sharing 3D models created in the popular free, open-source Blender program. As a longtime contributor I have amassed over 25,000 downloads, making one of my contributions one of the Top 10 most downloaded Blender files of all time.
+
+# Education
+
+B.A. in Physics
+### UCSB 2019
+
+
+# Awards
+
+### United States Air Force
+Award for research in wind turbine efficiency
+
+### Local Motors CAD Competition
+Design Award for CAD wheel model
+

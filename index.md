@@ -32,15 +32,11 @@ Lab Technician
 
 **Phil Reilly & Co.**
 
-Database & IT Systems Administrator
-
-Mechanical Technican
+Database & IT Systems Administrator & Mechanical Technican
 
 **Kasowitz, Benson, Torres & Friedman LLP**
 
-Courtroom Evidentiary Intern
-
-Law Research Intern
+Courtroom Evidentiary Intern & Law Research Intern
 
 **Paddock Ignition**
 

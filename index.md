@@ -1,3 +1,7 @@
+---
+title: I'm Conner Addison
+---
+
 
 ### I'm following my passion for physics and mechanical design.
 

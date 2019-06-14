@@ -2,12 +2,12 @@
 title: I'm Conner Addison
 ---
 
-<p style = "color:green;" align="center">
+<h2 style="color:green;text-align:center">
   <a href="https://www.linkedin.com/in/conner-addison-1ba650139/">LinkedIn</a> |
   <a href="https://github.com/csaddison">GitHub</a> |
   <a href="https://www.youtube.com/user/SterlingSchiffDesign">YouTube</a> |
   <a href="https://launchforth.io/TheFull9Yards">Local Motors</a>
-</p>
+</h2>
 
 ### I'm following my passion for physics and mechanical design.
 

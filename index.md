@@ -2,7 +2,7 @@
 title: I'm Conner Addison
 ---
 
-<h2 style="color:green;text-align:center">
+<h2 style="text-align:center;color:green">
   <a href="https://www.linkedin.com/in/conner-addison-1ba650139/">LinkedIn</a> |
   <a href="https://github.com/csaddison">GitHub</a> |
   <a href="https://www.youtube.com/user/SterlingSchiffDesign">YouTube</a> |

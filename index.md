@@ -1,6 +1,7 @@
 ---
 title: I'm Conner Addison
 ---
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
 <h2 style="text-align:center;color:green">
   <a href="https://www.linkedin.com/in/conner-addison-1ba650139/">LinkedIn</a> |
@@ -22,6 +23,7 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 * Console & web-app based cellular automata
 * A* pathfinding simulation in procedularly generated mazes
 
+****************
 
 # Skills
 
@@ -54,6 +56,7 @@ Courtroom Evidentiary Intern & Law Research Intern
 
 Editor & Lead Blogger
 
+****************
 
 # Projects
 
@@ -68,6 +71,7 @@ I wanted to share the knowledge I've learned designing in both 2D and 3D program
 **BlendSwap CAD Repository**
 
 BlendSwap is a platform for sharing 3D models created in the popular free, open-source Blender program. As a longtime contributor I have amassed over 25,000 downloads, making one of my contributions one of the Top 10 most downloaded Blender files of all time.
+
 
 # Education
 

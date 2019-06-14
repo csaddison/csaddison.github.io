@@ -9,6 +9,8 @@ title: I'm Conner Addison
   <a href="https://launchforth.io/TheFull9Yards">Local Motors</a>
 </h2>
 
+****************
+
 ### I'm following my passion for physics and mechanical design.
 
 Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; working towards my degree in Physics while pursuing my love of design and practical engineering. I also write about the automotive community as well as document the world around me through photography. It's my goal to share my knowledge with tutorials and to make my work available to download and experience for oneself. Read to learn more about the impact I've made on more than 150,000 learners.

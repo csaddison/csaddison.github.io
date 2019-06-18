@@ -18,7 +18,7 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 ### Also check out my ongoing projects:
 
-* Julia set fractal explorer GUI
+* [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
 * Simulating hydralic erosion on procedularly generated terrain
 * Console & web-app based cellular automata
 * A* pathfinding simulation in procedularly generated mazes

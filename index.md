@@ -20,7 +20,7 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 * [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
 * [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
-* Simulating hydralic erosion on procedularly generated terrain
+* [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
 * Console & web-app based cellular automata
 * A* pathfinding simulation in procedularly generated mazes
 

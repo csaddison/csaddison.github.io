@@ -1,7 +1,7 @@
 ---
 title: I'm Conner Addison
 ---
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
 <h3 style="text-align:center;color:green">
   <a href="https://www.linkedin.com/in/conner-addison-1ba650139/">LinkedIn</a> |

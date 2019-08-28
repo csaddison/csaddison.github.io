@@ -1,64 +1,16 @@
 <html>
 <head>
   <title>
-    p5.js Hosting Test - Conner Addison
+    p5.js Online Hosting - Conner Addison
   </title>
 </head>
-<body style="background-color: black; margin: 50px 0px 0px; text-align: center;">
-  <h1 style="font-family: Verdana; color: white">
-      p5.js Hosting Test
+<body style="background-color: black; margin-top: 50px; text-align: center;">
+  <h1 style="font-family: Verdana; color: white;">
+      p5.js Online Sketches
   </h1>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.js"></script>
-  <script>
-
-  // 8.26.19
-  // Sine/Fourier Visualization
-
-
-  // Initialize variables
-
-  var resolution = 3;
-  let frequency, amplitude, speed; // Positive speed to the right
-  let dt = 0;
-
-  function setup() {
-      createCanvas(800, 750);
-      stroke(0, 200, 0);
-
-      freqSlider = createSlider(0, 25, 2);
-      freqSlider.position(200, 150);
-      ampSlider = createSlider(5, 150, 75);
-      ampSlider.position(200, 180);
-      speedSlider = createSlider(0, 50, 10);
-      speedSlider.position(200, 210);
-  }
-
-
-  // Draw loop
-
-  function draw() {
-      var offset = height / 2;
-
-      const frequency = freqSlider.value();
-      const amplitude = ampSlider.value();
-      const speed = speedSlider.value() / 800;
-
-      background(0);
-      noFill();
-
-      beginShape();
-      // Setting resolution on curve
-      for (var x = 0; x < width + resolution; x += resolution) {
-          let rad = (x / width) * 2 *  Math.PI * frequency;
-          vertex(x, offset - amplitude * Math.cos(rad - (dt * frequency)));
-      }
-      endShape();
-
-      dt += speed;
-    }
-
-  </script>
+  <script src="scripts\fourier.js"></script>
 
 </body>
 </html>

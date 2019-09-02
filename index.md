@@ -18,17 +18,21 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 ### Also check out my ongoing projects:
 
- #*08.26.19* - [Fourier series epicycloid visualization](http://conneraddison.com/pages/fourier.html)
+ *#08.26.19* - [Fourier series epicycloid visualization](http://conneraddison.com/pages/fourier.html)
+ 
+ *#07.10.19* - [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
 
- #*07.10.19* - [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
+ *#06.03.19* - [Console & web-app based cellular automata](https://github.com/csaddison/Cellular-Automata)
 
- #*04.08.19* - [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
+ *#04.08.19* - [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
 
- #*03.25.19* - [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
+ *#03.25.19* - [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
 
- #*06.03.19* - Console & web-app based cellular automata
+ *#03.22.19* - [Condensed matter signal processing](https://github.com/csaddison/Reports/blob/master/GeV_fit.pdf)
 
- #*???* - A* pathfinding simulation in procedularly generated mazes
+ *#06.08.18* - [Measuring polarity of a solution from molecular chirality](https://github.com/csaddison/Reports/blob/master/Specific_Rotation.pdf)
+
+ *#02.02.17* - [Fixing the Black-Scholes model with stochastic volatility using asymtotic analysis](https://github.com/csaddison/Reports/blob/master/Asymptotic_Analysis.pdf)
 
 ****************
 

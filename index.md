@@ -18,11 +18,12 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 ### Also check out my ongoing projects:
 
-* [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
-* [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
-* [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
-* Console & web-app based cellular automata
-* A* pathfinding simulation in procedularly generated mazes
+ #*08.26.19* - [Fourier series epicycloid visualization](https://conneraddison.com/pages/fourier.html)
+ #*07.10.19* - [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
+ #*04.08.19* - [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
+ #*03.25.19* - [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
+ #*06.03.19* - Console & web-app based cellular automata
+ #*???* - A* pathfinding simulation in procedularly generated mazes
 
 ****************
 

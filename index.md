@@ -20,13 +20,13 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
  *#08.26.19* - [Fourier series epicycloid visualization](http://conneraddison.com/pages/fourier.html)
  
- *#07.10.19* - [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim)
+ *#07.10.19* - [Simulating hydralic erosion on procedularly generated terrain](https://github.com/csaddison/Hydraulic-Erosion-Sim/blob/master/README.md)
 
- *#06.03.19* - [Console & web-app based cellular automata](https://github.com/csaddison/Cellular-Automata)
+ *#06.03.19* - [Console & web-app based cellular automata](https://github.com/csaddison/Cellular-Automata/blob/master/README.md)
 
- *#04.08.19* - [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise)
+ *#04.08.19* - [A python Perlin noise algorithm](https://github.com/csaddison/Perlin-Noise/blob/master/README.md)
 
- *#03.25.19* - [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer)
+ *#03.25.19* - [Julia set fractal explorer GUI](https://github.com/csaddison/Fractal-Explorer/blob/master/README.md)
 
  *#03.22.19* - [Condensed matter signal processing](https://github.com/csaddison/Reports/blob/master/GeV_fit.pdf)
 

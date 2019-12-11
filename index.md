@@ -18,7 +18,9 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 ### Also check out my ongoing projects:
 
- *#09.21.19* - [Web based game of life implemations, more cellular automata](http://conneraddison.com/p5.js/)
+ *#12.02.19* - [Langton's ants and configurable turnmite battles](http://conneraddison.com/pages/langton.html)
+
+ *#09.21.19* - [Conway's game of life with pre-programmed guns and methuselahs](http://conneraddison.com/pages/conway.html)
 
  *#08.26.19* - [Fourier series epicycloid visualization](http://conneraddison.com/pages/fourier.html)
  
@@ -40,15 +42,13 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 # Skills
 
-* Programming in Python, Mathematica, and SQL
-* 3D modeling in SolidWorks and Blender
-* FEA anlysis in COMSOL
-* 2D design, sketching, drafting, and photography
-* Rapid prototyping with 3D printing, CNC routing and fabricating
-* Circuit design and testing, analog and digital
+* Programming ​in Python, JavaScript, WebGL, Mathmetica, MATLAB, and SQL
+* 3D CAD​ expertise in SolidWorks, Autodesk Fusion360, and Blender
+* Data analysis​ experience in Python with pandas, numpy, vectorized functions, and machine learning using sk-learn & Tensorflow
+* Graphic design​ with Adobe Photoshop, Illustrator, and InDesign; sketching, drafting, and photography 
+* Rapid prototyping​ with 3D printing, CNC routing, machining, and breadboarding
+* Analog electronics experience with oscilloscope testing, signal processing, PSpice simulation, and PCB layout in Autodesk Eagle 
 * Machine learning and cellular automaton simulations
-* Data analysis and signal processing
-* Compelling written, oral, and visual presentations 
 
 
 # Experience
@@ -90,7 +90,7 @@ BlendSwap is a platform for sharing 3D models created in the popular free, open-
 
 B.A. in Physics
 
-UCSB 2019
+UCSB 2020
 
 
 # Awards

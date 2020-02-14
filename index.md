@@ -18,6 +18,8 @@ Hi, I'm Conner Addison. I am a student, designer, and all around pragmatist; wor
 
 ### Also check out my ongoing projects:
 
+*#02.11.20* - [Natural selection using mutations to drive evolution in an agent based ecosystem](https://github.com/csaddison/Natural-Selection)
+
  *#12.02.19* - [Langton's ants and configurable turnmite battles](http://conneraddison.com/pages/langton.html)
 
  *#09.21.19* - [Conway's game of life with pre-programmed guns and methuselahs](http://conneraddison.com/pages/conway.html)

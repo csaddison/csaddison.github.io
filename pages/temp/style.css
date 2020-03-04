@@ -1,0 +1,506 @@
+
+
+/* ////////////////////////// SITE CONFIGURATION ////////////////////////// */
+
+/* Fonts and imports */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Montserrat', serif;
+    color: var(--accent-color);
+    font-weight: 900;
+}
+
+p {
+    font-family: 'Raleway', sans-serif;
+    color: var(--primary-color);
+}
+
+h2 {
+    margin-bottom: 2rem;
+}
+
+
+
+/* Page behavior */
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    --main-color: rgb(20, 40, 80);
+    --card-color: rgb(39, 73, 109);
+    --primary-color: rgb(12, 123, 147);
+    --accent-color: rgb(0, 168, 204);
+    --main-shadow: rgb(6, 13, 26);
+    --subtle-highlight: rgb(37, 59, 102);
+
+    background-color: var(--main-color);
+    background-image: linear-gradient(to top, var(--main-shadow), var(--main-color) 80%);
+    background-attachment: fixed;
+    max-width: 1600px;
+    margin: auto;
+}
+
+main {
+    width: 100%;
+}
+
+.writing {
+    display: flex;
+    width: 98%;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#page {
+    display: none;
+}
+
+
+
+
+/* Responsive stuff */
+
+@media screen and (min-width: 2000px) {
+    h2 {
+        font-size: 48px;
+    }
+    p {
+        font-size: 24px;
+    }
+    a {
+        font-size: 36px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    body {
+        width: 80vw;
+        min-width: 780px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        width: 98vw;
+    }
+    main {
+        width: 95%;
+        margin: auto;
+    }
+    .writing {
+        width: 100%;
+    }
+}
+
+
+
+
+/* ////////////////////////// LOADER ////////////////////////// */
+
+/* Title */
+.animate-title {
+    position: relative;
+    animation-name: anititle;
+    animation-duration: 1.5s;
+}
+@keyframes anititle { 
+    0% {bottom: -70px; opacity: 0}
+    100% {bottom: 0px; opacity: 1}
+}
+
+
+/* Hello line */
+.animate-tag {
+    position: relative;
+    animation-name: anitag;
+    animation-duration: 2.3s
+}
+@keyframes anitag { 
+    0% {bottom: 200px; opacity: 0}
+    20% {bottom: 200px; opacity: 0}
+    100% {bottom: 0px; opacity: 1}
+}
+
+
+/* Subtitle */
+.animate-sub {
+    position: relative;
+    animation-name: anisub;
+    animation-duration: 3.5s
+}
+@keyframes anisub { 
+    0% {bottom: -20px; opacity: 0}
+    60% {bottom: -20px; opacity: 0}
+    100% {bottom: 0px; opacity: 1}
+}
+
+
+/* Rest of intro */
+.animate-intro {
+    position: relative;
+    animation-name: aniint;
+    animation-duration: 6s
+}
+@keyframes aniint { 
+    0% {bottom: -70px; opacity: 0}
+    80% {bottom: -70px; opacity: 0}
+    100% {bottom: 0px; opacity: 1}
+}
+
+
+/* Navbar */
+.animate-nav {
+    position: relative;
+    animation-name: aninav;
+    animation-duration: 6s
+}
+@keyframes aninav { 
+    0% {bottom: 0vmax; opacity: 0}
+    80% {bottom: 0vmax; opacity: 0}
+    100% {bottom: 0px; opacity: 1}
+}
+
+
+/* Rest of page */
+.animate-content {
+    position: relative;
+    animation-name: anipage;
+    animation-duration: 6s
+}
+@keyframes anipage { 
+    0% {opacity: 0}
+    75% {opacity: 0}
+    100% {opacity: 1}
+}
+
+
+
+
+/* ////////////////////////// HEADER ////////////////////////// */
+
+/* Navbar */
+
+header {
+    display: flex;
+    box-shadow: 0px 15px 10px -15px var(--main-shadow);
+    background-image: linear-gradient(to right, var(--main-color), var(--subtle-highlight) 50%, var(--main-color) 100%);
+
+}
+
+.profile {
+    flex-grow: 1;
+}
+
+nav {
+    align-self: center;
+    flex-grow: 3;
+    float: right;
+    margin-right: 2%;
+    display: none;
+}
+
+nav span {
+    float: right;
+}
+
+nav a {
+    margin-left: 3vw;
+    font-size: 24px;
+    transition-duration: 0.2s;
+}
+
+nav a:hover {
+    color: white;
+    text-shadow: 0px 0px 5px var(--accent-color);
+    cursor: pointer;
+}
+
+.avatar {
+    width: 5vmax;
+    max-width: 60px;
+    margin: 5px;
+    align-self: center;
+    border-style: solid;
+    border-color: var(--accent-color);
+    border-radius: 50%;
+    transition-duration: 0.2s;
+}
+
+.avatar:hover {
+    border-color: white;
+    box-shadow: 0px 0px 15px var(--accent-color);
+    cursor: pointer;
+}
+
+.material-icons{
+    color: white;
+    font-size: 36px;
+}
+
+
+
+/* Responsive stuff */
+
+nav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    nav.responsive a.icon {
+        position: absolute;
+        right: 100;
+        top: 0;
+    }
+    nav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    nav a {
+        display: none;
+    }
+    nav a.icon {
+        align-items: center;
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    nav a {
+        font-size: 30px;
+    }
+}
+
+
+
+
+/* ////////////////////////// INTRO ////////////////////////// */
+
+.intro {
+    height: 80vh;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.intro-content {
+    margin-left: 10%;
+}
+
+h1 {
+    font-size: 72px;
+    margin: 0px;
+    display: inline-block;
+    transition-duration: 0.4s;
+}
+
+h1:hover {
+    color: #97ccd8;
+    /* color: white; */
+    text-shadow: 0px 0px 15px var(--accent-color);
+}
+
+h3 {
+    font-size: 36px;
+    color: var(--primary-color);
+    margin: 0px;
+    margin-bottom: 60px;
+}
+
+h4 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin: 0px;
+    margin-top: 20px;
+}
+
+.intro p {
+    color: var(--accent-color);
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+
+
+/* Buttons */
+
+button {
+    border-radius: 5%;
+    font-family: 'Raleway', sans-serif;
+    color: #66ff99;
+    font-size: 18px;
+    background-color: rgb(102, 255, 102, .05);
+    border: solid thin #66ff99;
+    padding: .5em;
+    width: 15ch;
+    margin-top: 1.5em;
+    margin-right: 2em;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(0, 168, 204, .5);
+    color: white;
+    text-shadow: 0px 0px 5px var(--accent-color);
+    border-color: white;
+    box-shadow: 0px 0px 5px var(--accent-color);
+}
+
+/* For animated arrow */
+
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+} 
+button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+button:hover span {
+    padding-right: 25px;
+}
+  
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+
+
+
+/* Responsive stuff */
+
+@media screen and (max-width: 800px) {
+    .intro {
+        max-height: 400px;
+    }
+    h1 {
+        font-size: 48px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    h4 {
+        font-size: 18px;
+    }
+    .intro p {
+        font-size: 16px;
+    }
+    .intro-content {
+        margin-left: 0px;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    h1 {
+        font-size: 120px;
+    }
+    h3 {
+        font-size: 60px;
+    }
+    h4 {
+        font-size: 48px;
+    }
+    .intro p {
+        font-size: 30px;
+    }
+}
+
+
+
+
+/* ////////////////////////// ABOUT ////////////////////////// */
+
+.about {
+    min-height: 500px;
+}
+
+.languages {
+    margin-top: 3em;
+}
+
+.lang-flex {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+
+
+/* ////////////////////////// PROJECTS ////////////////////////// */
+
+.projects {
+    min-height: 500px;
+}
+
+.projects ul {
+    font-family: 'Raleway', sans-serif;
+    color: var(--accent-color);
+    list-style-type: none;
+}
+
+.projects li {
+    margin-top: 1rem;
+}
+
+.projects span:hover {
+    color: white;
+    text-shadow: 0px 0px 5px var(--accent-color);
+}
+
+
+
+/* Responsive stuff */
+
+@media screen and (min-width: 2000px) {
+    .projects ul {
+        font-size: 24px;
+    }
+}
+
+
+
+
+/* ////////////////////////// RESUME ////////////////////////// */
+
+h5 {
+    margin: 0px;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.resume p {
+    margin: 0px;
+    text-indent: 2em;
+    /* margin-bottom: 1em; */
+}
+
+.resume li {
+    margin-bottom: 1em;
+}
+
+.resume ul {
+    margin: 1em;
+    list-style-type: none;
+}

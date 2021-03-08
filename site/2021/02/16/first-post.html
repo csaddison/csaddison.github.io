@@ -5,7 +5,24 @@
 
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/assets/css/style.css">
+
         
+
+        
+            <script>
+                MathJax = {
+                    tex: {
+                      inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    //   skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                    },
+                    svg: {
+                      fontCache: 'global'
+                    }
+                  };
+            </script>
+            <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
         <title>
             
                 This is a long main headline for things & can be mucho mas lineros // CSA
@@ -19,9 +36,9 @@
     <div class="header-image"></div>
     <nav>
         <div class="header-wrapper">
-            <a href="" id="csa"></a>
-            <!-- <a href="">HOME</a> -->
-            <a href="" class="push">home</a>
+            <a href="conneraddison.com" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="conneraddison.com" class="push">home</a>
             <!-- <a href="/blog.html" class="push">BLOG</a> -->
             <a href="/blog.html">blog</a>
             <a href="/about.html">about</a>
@@ -72,6 +89,8 @@
 
 <p>Nisi scelerisque eu ultrices vitae auctor. Tellus elementum sagittis vitae et leo duis ut diam quam. Nibh praesent tristique magna sit amet purus gravida quis blandit. Tristique sollicitudin nibh sit amet commodo nulla. Ligula ullamcorper malesuada proin libero nunc consequat interdum. Faucibus ornare suspendisse sed nisi lacus. Ultrices vitae auctor eu augue ut lectus arcu bibendum.</p>
 
+<script type="math/tex; mode=display">f(x; k, \theta) = \frac{x ^ {k-1} e ^ {-x / \theta}}{\theta ^ k \Gamma (k)}</script>
+
 <hr />
 
 <p>Mauris nunc congue nisi vitae suscipit tellus mauris a. Commodo odio aenean sed adipiscing diam donec. Ut pharetra sit amet aliquam id diam maecenas ultricies mi. Egestas purus viverra accumsan in nisl. Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Scelerisque felis imperdiet proin fermentum leo. Eget gravida cum sociis natoque penatibus et magnis dis. Arcu dui vivamus arcu felis bibendum. Etiam dignissim diam quis enim lobortis scelerisque fermentum.</p>
@@ -105,7 +124,14 @@
   </tbody>
 </table>
 
-<p>Sem et tortor consequat id porta. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Feugiat sed lectus vestibulum mattis. Mollis nunc sed id semper risus in. Fermentum et sollicitudin ac orci. Nunc sed velit dignissim sodales ut eu sem. Scelerisque <code class="highlighter-rouge">for code:</code> eu ultrices vitae auctor eu augue ut lectus. Diam maecenas sed enim ut sem viverra aliquet.</p>
+<p>Sem et tortor consequat id porta. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Feugiat <script type="math/tex">\psi = h \dot t</script> sed lectus vestibulum mattis. Mollis nunc sed id semper risus in. <script type="math/tex">f=ma</script></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ignore this math $$ f=ma $$
+</code></pre></div></div>
+
+<script type="math/tex; mode=display">r=q \otimes p</script>
+
+<p>Fermentum et sollicitudin ac orci. Nunc sed velit dignissim sodales ut eu sem. Scelerisque <code class="highlighter-rouge">for code:</code> eu ultrices vitae auctor eu augue ut lectus. Diam maecenas sed enim ut sem viverra aliquet.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Matrix rotation of 2-dimensional vectors in degrees</span>
 <span class="kd">function</span> <span class="nx">rotateVector</span><span class="p">(</span><span class="nx">vec</span><span class="p">,</span> <span class="nx">angle</span><span class="p">,</span> <span class="nx">isDegree</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>

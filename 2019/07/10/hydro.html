@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        
+
+        
+            <script>
+                MathJax = {
+                    tex: {
+                      inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    //   skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                    },
+                    svg: {
+                      fontCache: 'global'
+                    }
+                  };
+            </script>
+            <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        <title>
+            
+                Droplet Based Erosion for Procedural Terrain Heightmaps // CSA
+            
+        </title>
+
+    </head>
+    <body>
+
+        <header>
+    <div class="header-image"></div>
+    <nav>
+        <div class="header-wrapper">
+            <a href="/#feature" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="/blog.html" class="push">blog</a>
+            <a href="/about.html">about</a>
+            <a href="/style.html">style guide</a>
+        </div>
+        <span class="seperator"></span>
+    </nav>
+</header>
+        <main class="page">
+    <div class="title-wrapper">
+    <div class="hero" style="background:
+            linear-gradient(180deg,
+                            rgba(121, 68, 122, 0.125) 0%,
+                            rgba(32, 16, 32, 0.25) 100%),
+                            url(/assets/images/erode.png);
+            background-position: center;
+            background-size: cover;">
+    </div>
+    <div class="title-block">
+        <span id="date">Jul 10, 2019</span>
+        <h1>Droplet Based Erosion for Procedural Terrain Heightmaps</h1>
+        <div class="cloud">
+            <span id="posted-tags">tagged with</span>
+            
+                <span class="tag">geography</span>
+            
+                <span class="tag">modeling</span>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="gradient-wrapper">
+    <img src="/assets/images/erode.png" alt="" class="hero-im">
+    <div class="hero-grad"></div>
+</div> -->
+    <h1 id="sub">Hydraulic Erosion Simulation - Processing heightmaps for simulated droplet-based erosion</h1>
+    <article><p>Creating procedural terrain from heghtmaps is easily done with <a href="https://github.com/csaddison/Perlin-Noise">classical noise generators</a> and fractal noise, however making that terrain look realistic is often much harder. Depending on how many octaves you use, proceduarly generated terrain is either too smooth or too jagged to look realistic. Natural terrain has a combination of these features, with rocky mountains and flatter rolling plains. A leading cause of this is the natural erosion of the terrain over time, especially due to rivers and rainfall. By simulating thousands of rain droplets we can compute the movement of the water accross the land and erode and deposit sediment as the drop travels. This leads to realistic erosion patterns, especially in hilly regions, and realisitc valleys in between them. This project is largely a pythonic implementation of the hydraulic erosion algorithm described <a href="https://www.firespark.de/resources/downloads/implementation%20of%20a%20methode%20for%20hydraulic%20erosion.pdf">here</a>.</p>
+
+<div class="gallery">
+    <img src="/assets/images/raw.png" alt="Before simulation" />
+    <img src="/assets/images/erode.png" alt="After 50,000 drops" />
+</div>
+<p><span class="caption">A procedural heightmap before and after a 50,000 droplet simulation. Notice the defined ridges and gullies</span></p>
+
+<h3 id="contents">Contents</h3>
+<ul>
+  <li><a href="#dependencies">Dependencies</a></li>
+  <li><a href="#implementation">Implementation</a>
+    <ul>
+      <li><a href="#parameters">Parameters</a></li>
+      <li><a href="#map-and-droplet-generation">Map and Droplet Generation</a></li>
+      <li><a href="#gradients-and-movement">Gradients and Movement</a></li>
+      <li><a href="#sediment-capacity">Sediment Capacity</a></li>
+      <li><a href="#erosion">Erosion</a></li>
+      <li><a href="#deposition">Deposition</a></li>
+      <li><a href="#post-processing">Post Processing</a></li>
+    </ul>
+  </li>
+  <li><a href="#changes">Changes</a></li>
+</ul>
+
+<h4 id="dependencies">Dependencies</h4>
+
+<p>These scripts require you to have numpy and scipy (pretty standard) but also require the 3D pipeline toolkit <a href="https://docs.enthought.com/mayavi/mayavi/">Mayavi</a>.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<p><strong>Map Parameters</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">noise_scale</code>: The size of the noise in the first octave. Lower = bigger. Powers of 2 work best.</li>
+  <li><code class="highlighter-rouge">terrain_reolution</code>: The resolution of the terrain map. Powers of 2 work best.</li>
+  <li><code class="highlighter-rouge">noise_octaves</code>: The number of “layers” in the fractal noise.</li>
+  <li><code class="highlighter-rouge">noise_lacunarity</code>: The power to which the scale increases each octave. Powers of 2 work best.</li>
+  <li><code class="highlighter-rouge">noise_persistance</code>: The factor of which the amplitude of each octave is reduced. <code class="highlighter-rouge">float</code> between 0-1.</li>
+  <li><code class="highlighter-rouge">map_seed</code>: The seed for the noise generator.</li>
+</ul>
+
+<p><strong>Rain Parameters</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">drop_iterations</code>: The number of random droplets created.</li>
+  <li><code class="highlighter-rouge">drop_move_cap</code>: The maximum number of movement steps for each drop.</li>
+  <li><code class="highlighter-rouge">drop_initial_water</code>: The initial water level of each drop pre-evaporation.</li>
+  <li><code class="highlighter-rouge">rain_seed</code>: The seed for the initial droplet positions.</li>
+  <li><code class="highlighter-rouge">rain_initial_vel</code>: Initial velocity for all of the rain drops. Allows you to approximately simulate wind-driven rain. <code class="highlighter-rouge">tuple</code></li>
+</ul>
+
+<p><strong>Movement Parameters</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">world_gravity</code>: The rate the droplets accelerate when moving down/uphill.</li>
+  <li><code class="highlighter-rouge">drop_momentum</code>: A <code class="highlighter-rouge">float</code> between 0-1 dictating how much the drop responds to the terrain. A value of 1 means the drop never changes direction and a value of 0 means the drop moves directly downhill with no “memory”.</li>
+  <li><code class="highlighter-rouge">water_cuttoff</code>: Drops with water levels below this value will cease to exist. <code class="highlighter-rouge">float</code> generally close to 0.</li>
+</ul>
+
+<p><strong>Erosion Parameters</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">erosion_rate</code>: A <code class="highlighter-rouge">float</code> between 0-1 dictating how much erosion ability the drops have. A value of 1 means the drop fills as much of its carrying capacity as it can each time step and a value of 0 means no erosion.</li>
+  <li><code class="highlighter-rouge">sediment_capacity_multiplier</code>: A factor regulating how much sediment a drop can carry.</li>
+  <li><code class="highlighter-rouge">deposition_rate</code>: A <code class="highlighter-rouge">float</code> between 0-1 dictating how much sediment is deposited each time step. If the value is 1 then the drop deposits all of the sedument it carries when it encounters a pit. Low values are more realistic.</li>
+  <li><code class="highlighter-rouge">erosion_radius</code>: An <code class="highlighter-rouge">int</code> radius of points that lose sediment around an eroded point. Helps prevent narrow ravines that would crumble in real life, but be careful: this currently works as a nested for-loop and is computationally expensive (it has to run everytime the drop erodes the terrain.) A reasonable value on a 256x256 map is ~4 cells.</li>
+  <li><code class="highlighter-rouge">min_slope_capacity</code>: A <code class="highlighter-rouge">float</code> that prevents the carrying capacity from dropping straight to zero when a drop encounters flatter terrain. Scale it in relation to the range of your heightmap as it is used in comparison to the $\Delta h$ of the drops movement.</li>
+</ul>
+
+<p><strong>Render Parameters</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">map_colormap</code>: The colormap for the output, default is ‘YlGn’ since it emulates terrain colors.</li>
+  <li><code class="highlighter-rouge">map_z_scale</code>: The height of the output. Use it with <code class="highlighter-rouge">map_board_scale</code> to scale any sized terrain.</li>
+  <li><code class="highlighter-rouge">map_board_scale</code>: The length/width of the output. Use it with <code class="highlighter-rouge">map_z_scale</code> to scale any sized terrain.</li>
+  <li><code class="highlighter-rouge">processing_blur</code>: The radius of the gaussian blur applied to the output after erosion. Default is 1.</li>
+</ul>
+
+<h4 id="map-and-droplet-generation">Map and Droplet Generation</h4>
+
+<p>In order to simulate terrain erosion we obviously first need terrain to erode. Any heightmap can be used, with these examples using 8-bit maps (0-255). This approach focuses on processing procedurally generated terrain, but another interesting application of this algorithm is to make hand-drawn heightmaps more lifelike. The procedural terrain comes from layered Perlin noise using a <a href="https://github.com/csaddison/Perlin-Noise">homemade noise script</a> and the syntax:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fractal_noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">.</span><span class="n">Octave</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">num_of_octaves</span><span class="p">,</span> <span class="n">major_grid_scale</span><span class="p">,</span> <span class="n">falloff</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After creating the terrain we create the droplets from a random list of $(x,y)$ positions on our board:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">drops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">p_num_drops</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And continue our calculations for every drop in our number of iterations <code class="highlighter-rouge">p_num_drops</code>. For each drop during each time step we store its current position <code class="highlighter-rouge">pos_0</code> (a float); and its current cell on the map <code class="highlighter-rouge">index_0</code> (an integer). In general the index is just the position rounded to the nearest integer.</p>
+
+<h4 id="gradients-and-movement">Gradients and Movement</h4>
+
+<p>For each droplet we want it to move downhill across ou-r terrain, picking up and depositing sediment in a realistic manner. The first step is getting it moving downhill. We take the mathematical gradient of our terrain using:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uy</span><span class="p">,</span> <span class="n">ux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">ermap</span><span class="p">)</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">uy</span><span class="p">[</span><span class="n">index_0</span><span class="p">],</span> <span class="n">ux</span><span class="p">[</span><span class="n">index_0</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<p>then for each time step we move the droplet according to:</p>
+
+<script type="math/tex; mode=display">vel_{new} = vel_{old} * k_{momentum} - grad_{index}(1 - k_{momentum})</script>
+
+<p>A <code class="highlighter-rouge">k_momentum</code> value of 1 means the droplet never changes beyond its initial velocity (often zero), and a value of 0 means the drop always moves directly downhill with no “memory”. After calculating the velocity we update the droplets position. However, we don’t want to move the droplet proportionally to its speed because a fast drop could then “skip over” cells, climbing impassable obstacles and not eroding the transversed terrain. So we’ll normalize the velocity when we add it to the position:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">norm_vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span>
+<span class="n">pos_t</span> <span class="o">=</span> <span class="n">pos_0</span> <span class="o">+</span> <span class="n">vel</span> <span class="o">/</span> <span class="n">norm_vel</span>
+</code></pre></div></div>
+
+<p>The final step is to evaporate some of the drop after it has finished moving and eroding during a time step. This can be done with an evaporation rate or, in this case, by setting a movement cap such that:</p>
+
+<script type="math/tex; mode=display">water_{new} = water_{old} - \frac{water_{initial}}{moves_{max}}</script>
+
+<h4 id="sediment-capacity">Sediment Capacity</h4>
+
+<p>Every step the droplet takes one of two actions: either eroding sediment or depositing sediment. This decision depends on the current sediment level of the drop in comparison to the calculated carrying capacity. The controlling equation is:</p>
+
+<script type="math/tex; mode=display">capacity_{max} = -\Delta h \cdot speed \cdot water \cdot k_{sediment}</script>
+
+<p>where <script type="math/tex">k_{sediment}</script> is the <code class="highlighter-rouge">sediment_capacity_multiplier</code>. This works well in steep areas. From <script type="math/tex">\Delta h = h_{new} - h_{old}</script> we know that when moving downhill <script type="math/tex">\Delta h</script> is negative so, along with our increase in speed, our carrying capacity goes up. However in flat terrain as <script type="math/tex">\Delta h \rightarrow 0</script> the capacity also declines towards zero. Adding a clamp at a <code class="highlighter-rouge">min_slope_capacity</code> allows the drop to always hold at least a little sediment as it crosses flatter terrain:</p>
+
+<script type="math/tex; mode=display">capacity_{max} = min(slope_{minimum},-\Delta h) \cdot speed \cdot water \cdot k_{sediment}</script>
+
+<h4 id="erosion">Erosion</h4>
+
+<p>When a drop moves to a new cell and has less sediment than its maximum capacity it will erode the terrain, taking sediment from its old cell as well as neighboring cells in a specified radius. How much sediment is eroded is proportional to a drops carrying capacity and how much sediment it is currently carrying:</p>
+
+<script type="math/tex; mode=display">erosion = (capacity_{max} - sediment_{carry}) \cdot k_{erosion}</script>
+
+<p>Where <script type="math/tex">k_{erosion}</script> is the the erosion rate. One improvement to add to this would be to allow <script type="math/tex">k_{erosion}</script> to vary throughout the terrain, forming patches of harder or softer rock. This could lead to interesting natural features such as canyons and waterfalls. One thing to note is that we never want to erode more sediment than the <script type="math/tex">\Delta h</script> of the drop, so we add:</p>
+
+<script type="math/tex; mode=display">erosion = min([capacity_{max} - sediment_{carry}] \cdot k_{erosion}, -\Delta h)</script>
+
+<h4 id="deposition">Deposition</h4>
+
+<p>Depositing sediment is easier than erosion. When the drop is has more sediment than its carrying capacity allows it will deposit a fraction of its sediment according to the equation:</p>
+
+<script type="math/tex; mode=display">deposition = (capacity_{max} - sediment_{carry}) \cdot k_{deposition}</script>
+
+<p>Where <script type="math/tex">k_{deposition}</script> is a constant corresponding the the rate. A rate of 1 means it drops all of its extra sediment in one time step. Since this implementation doesn’t have bilinear interpolation yet the sediment is simply deposited on the index position of the drop. Thats also why there are currently bumps on the surface–the deposition get dropped on the same node multiple times before it moves to a new cell.</p>
+
+<h4 id="post-processing">Post Processing</h4>
+
+<p>The 3D rendering is handled by the Mayavi library although the eroded heightmap could easily be rendered by matplotlib. My next attempt will probably utilize a JavaScript approach to a 3D webapp. The only processing done pre-render is a slight blur from the <code class="highlighter-rouge">scipy.ndimage.filters.gaussian_filter</code> function. The main purpose of the blur is to smooth deposition errors.</p>
+
+<h4 id="changes">Changes</h4>
+
+<p>As of 6/24/2019 the code is working but not pretty. Some aspects from the paper have been neglected, such as bilinear interpolation of the gradients and bilinear interpolation on sediment distribution. Instead (mostly due to lack of patience) I’ve opted for the easier solution of slightly blurring the erosion map after deposition.</p>
+
+<p>The biggest changes coming for this project are to:</p>
+
+<ul>
+  <li>Fix the weights on the erosion radius</li>
+  <li>Try and implement smoother deposition</li>
+</ul>
+
+<p>But mainly:</p>
+
+<ul>
+  <li>Refactor into a <code class="highlighter-rouge">drop</code> class</li>
+</ul>
+
+<p>Setting up a drop as its own class would make tracking drop variables (water level, sediment level, carrying capacity, speed, position, etc.) easier and more intuative; and the movement, erosion, and deposition functions could be refactored as class methods. This opens up the possibility for selecitvely applying the methods (especailly the evaporation method) to introduce rivers and other water sources.</p>
+</article>
+    <span class="seperator"></span>
+</main>
+
+<div class="bottom-wrapper">
+    
+        <a href="/2020/02/09/evolution.html" class="suggested" id="newer"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/animals.png);
+            background-size: cover;
+            background-position: center;">
+            <span class="arrow" id="left">&#10092;</span>
+            <div>
+                <span>newer</span>
+                <h5>Population Busts and Survival of the Most Reproductive</h5>
+            </div>
+        </a>
+    
+    
+        <a href="/2019/06/03/eca.html" class="suggested" id="older"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/eca.png);
+            background-size: cover;
+            background-position: center;">
+            <div>
+                <span>older</span>
+                <h5>Cellular Automaton in the DOM and ECA local-lay</h5>
+            </div>
+            <span class="arrow" id="right">&#10093;</span>
+        </a>
+    
+</div>
+
+
+        <footer>
+    <div class="footer-image"></div>
+    <div class="footer-wrapper">
+        <a href="/about.html" class="avatar">
+            <img src="/assets/images/img.png" alt="avatar" class="avatar-image">
+            <div class="outline"></div>
+        </a>
+        <a href="https://github.com/csaddison/csaddison.github.io" target="_blank" rel="noopener noreferrer">&lt;/&gt; by conner</a>
+        <span>#021821</span>
+    </div>
+</footer>
+
+    </body>
+</html>

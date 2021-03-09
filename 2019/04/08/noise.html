@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        
+
+        
+            <script>
+                MathJax = {
+                    tex: {
+                      inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    //   skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                    },
+                    svg: {
+                      fontCache: 'global'
+                    }
+                  };
+            </script>
+            <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        <title>
+            
+                Random Noise Generation in Python with Numpy & Vectorization // CSA
+            
+        </title>
+
+    </head>
+    <body>
+
+        <header>
+    <div class="header-image"></div>
+    <nav>
+        <div class="header-wrapper">
+            <a href="/#feature" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="/blog.html" class="push">blog</a>
+            <a href="/about.html">about</a>
+            <a href="/style.html">style guide</a>
+        </div>
+        <span class="seperator"></span>
+    </nav>
+</header>
+        <main class="page">
+    <div class="title-wrapper">
+    <div class="hero" style="background:
+            linear-gradient(180deg,
+                            rgba(121, 68, 122, 0.125) 0%,
+                            rgba(32, 16, 32, 0.25) 100%),
+                            url(/assets/images/perlin.png);
+            background-position: center;
+            background-size: cover;">
+    </div>
+    <div class="title-block">
+        <span id="date">Apr 8, 2019</span>
+        <h1>Random Noise Generation in Python with Numpy & Vectorization</h1>
+        <div class="cloud">
+            <span id="posted-tags">tagged with</span>
+            
+                <span class="tag">graphics</span>
+            
+                <span class="tag">vectorization</span>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="gradient-wrapper">
+    <img src="/assets/images/perlin.png" alt="" class="hero-im">
+    <div class="hero-grad"></div>
+</div> -->
+    <h1 id="sub"></h1>
+    <article><p>After failing to find a succient and readable Perlin noise algorithm in Python, I decided to create my own. This goes over the differences between Perlin noise and random noise, as well as document the imporvements I’ve tried to make to my original algorithm with the power of vectorized functions.</p>
+
+<h3 id="using-the-script">Using the script</h3>
+
+<p>Simply run:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">noise</span> <span class="c1"># Both functions output a square array of noisy values normalized from 0-255
+</span><span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">.</span><span class="n">Perlin</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+<span class="n">fractal_noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">.</span><span class="n">Octave</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">num_of_octaves</span><span class="p">,</span> <span class="n">major_grid_scale</span><span class="p">,</span> <span class="n">falloff</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Note that when using the octave/fractal noise function, the <code class="highlighter-rouge">major_grid_scale</code> (formally called lacunarity) determines in part your resolution. The resolution needs to be evenly divisible by <script type="math/tex">lacunarity^{octaves}</script>. Typically is you make both the lacunarity and resolution powers of 2 there will be no issue.</p>
+
+<h3 id="random-noise">Random noise</h3>
+
+<div class="gallery">
+    <img src="/assets/images/noise.jpg" alt="" />
+    <img src="/assets/images/perlin.png" alt="" />
+    <img src="/assets/images/octaves.png" alt="" />
+</div>
+<p><span class="caption">Above: the differences between random/white noise (left), Perlin noise (center), and Perlin noise with multiple octaves (right)</span></p>
+
+<p>True random noise is the simplest form of noise, but it’s surprisingly useless for many circumstances. The differences in noise are shown above with It has its moments–<a href="https://github.com/csaddison/Hydraulic-Erosion-Sim">like simulating raindrops in my hydraulic erosion simulation</a>–but for many applications a better choice of distribution or noise algorithm yields more accurate results.</p>
+
+<p>The problem is that many natural phenomena have smooth, continuous changes. They’re well-behaved processes: a small shift in the intput results in a small shift in the output: <script type="math/tex">f(x+\epsilon) \approx f(x) + \epsilon</script>. Random noise usually has large jumps when moving even a single pixel or other unit. However, it is incredibly easy to implement:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="mi">255</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">y_dimension</span><span class="p">,</span> <span class="n">x_dimension</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The prefactor of 255 is used as a convention to create a standard 8-bit image (<script type="math/tex">2^{8}=256</script>).</p>
+
+<h3 id="perlin-noise">Perlin noise</h3>
+
+<p><em>Note: all images in this section are created by Matthewslf and taken from the Wikimedia Commons under <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>.</em></p>
+
+<p><img src="/assets/images/grid.png" alt="" />
+<span class="caption">Above: the grid structure of gradients</span></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Perlin_noise">Perlin noise</a> was developed in 1983 by Ken Perlin and takes into account the value of neighboring points to create smooth, undulating patterns. This works by assigning a vector direction to a large underlying grid of lattice points. The number of grid nodes inversely corresponds with the scale of the noise–a higher grid count leads to smaller scaled noise.</p>
+
+<p><img src="/assets/images/dot.png" alt="" />
+<span class="caption">Above: dot products of displacement and gradient vectors</span></p>
+
+<p>Then, for every pixel in a cell the algorithm creates a displacement vector between the pixel and the nearest node. It then calculates the dot product of this displacement vector with the the gradient vector of the nearest node.</p>
+
+<p><img src="/assets/images/interp.png" alt="" />
+<span class="caption">Above: values after interpolation</span></p>
+
+<p>It then interpolates between adjacent the results, creating smooth transitions between nodes. There are many possible interpolation equations: linear, cubic, sigmoid… the list goes on. The Perlin algorithm uses a quintic interpolation function to avoid artifacts between cells. This is accomplished by requiring the first and second derivatives of the function to vanish at <script type="math/tex">x=0,1</script> so that a constant rate of change of value is achieved:</p>
+
+<script type="math/tex; mode=display">f(x) = 6 x^5 - 15 x^4 + 10 x^3</script>
+
+<p>Taking the first and second derivative of this, it is clear that <script type="math/tex">f'(0) = f''(0) = f'(1) = f''(1) = 0</script>. That’s all that’s required to create Perlin noise–one downside of this algorithm is that the node points themselves always have a dot product of zero, which in a range of -1 to 1 means that each node point is always exactly 50% grey. Similar algorithms have been proposed with improvements, most notably <a href="https://en.wikipedia.org/wiki/Simplex_noise">Simplex noise</a> which is considerably cheaper to render in higher dimensions: <script type="math/tex">\mathcal{O}(n^2)</script> for Simplex versus <script type="math/tex">\mathcal{O}(n2^n)</script> for Perlin.</p>
+
+<h3 id="multi-octave-noise">Multi-octave noise</h3>
+
+<p>Multi-octave Perlin noise, commonly called fractal noise, involves simply rescaling and adding Perlin noise to itself iteratively. Each iteration, called an octave, is rescaled exponentially and added to the previous octave with a reduced weight (called the persistance of the octave). The grid size of the first octave is referred to as the lacunarity and the grid size of subsequent octaves is <script type="math/tex">lac.^n</script> for the <script type="math/tex">n^{th}</script> octave. Generally, keeping the lacunarity as a power of 2 works well, especially for resolutions common to texture maps (512x512, 1024x1024, etc.).</p>
+
+<h3 id="the-power-of-vectorization">The power of vectorization</h3>
+
+<p>Originally I had written this program using nested for-loops, looping over every grid point as well as every pixel. This was excruciatingly slow with large grids and high resolutions. After learning about vectorizing functions in numpy I realized this could be sped up considerably. After vectorization the script runs ~30x faster than before.</p>
+</article>
+    <span class="seperator"></span>
+</main>
+
+<div class="bottom-wrapper">
+    
+        <a href="/2019/06/03/eca.html" class="suggested" id="newer"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/eca.png);
+            background-size: cover;
+            background-position: center;">
+            <span class="arrow" id="left">&#10092;</span>
+            <div>
+                <span>newer</span>
+                <h5>Cellular Automaton in the DOM and ECA local-lay</h5>
+            </div>
+        </a>
+    
+    
+        <a href="/2019/03/25/fractal.html" class="suggested" id="older"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/frac1.png);
+            background-size: cover;
+            background-position: center;">
+            <div>
+                <span>older</span>
+                <h5>Exploring Julia Set Fractals and QtPy GUI's</h5>
+            </div>
+            <span class="arrow" id="right">&#10093;</span>
+        </a>
+    
+</div>
+
+
+        <footer>
+    <div class="footer-image"></div>
+    <div class="footer-wrapper">
+        <a href="/about.html" class="avatar">
+            <img src="/assets/images/img.png" alt="avatar" class="avatar-image">
+            <div class="outline"></div>
+        </a>
+        <a href="https://github.com/csaddison/csaddison.github.io" target="_blank" rel="noopener noreferrer">&lt;/&gt; by conner</a>
+        <span>#021821</span>
+    </div>
+</footer>
+
+    </body>
+</html>

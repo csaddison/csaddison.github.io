@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        
+
+        
+
+        <title>
+            
+                Cellular Automaton in the DOM and ECA local-lay // CSA
+            
+        </title>
+
+    </head>
+    <body>
+
+        <header>
+    <div class="header-image"></div>
+    <nav>
+        <div class="header-wrapper">
+            <a href="/#feature" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="/blog.html" class="push">blog</a>
+            <a href="/about.html">about</a>
+            <a href="/style.html">style guide</a>
+        </div>
+        <span class="seperator"></span>
+    </nav>
+</header>
+        <main class="page">
+    <div class="title-wrapper">
+    <div class="hero" style="background:
+            linear-gradient(180deg,
+                            rgba(121, 68, 122, 0.125) 0%,
+                            rgba(32, 16, 32, 0.25) 100%),
+                            url(/assets/images/eca.png);
+            background-position: center;
+            background-size: cover;">
+    </div>
+    <div class="title-block">
+        <span id="date">Jun 3, 2019</span>
+        <h1>Cellular Automaton in the DOM and ECA local-lay</h1>
+        <div class="cloud">
+            <span id="posted-tags">tagged with</span>
+            
+                <span class="tag">conway</span>
+            
+                <span class="tag">life</span>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="gradient-wrapper">
+    <img src="/assets/images/eca.png" alt="" class="hero-im">
+    <div class="hero-grad"></div>
+</div> -->
+    <h1 id="sub">Coding an Elementary Cellular Automaton & Conway's Game of Life</h1>
+    <article><h3 id="what-is-a-cellular-automaton">What is a cellular automaton?</h3>
+
+<p>A cellular automaton (CA) is an evolving, “living” system that forms complex and repetetive behavior from a few simple rules. Basically the entire world of a CA evolves every timestep, with each cell either surviving, dying, or coming to life depending on the state of the previous generation. A CA can really live in N-dimensional space, but the most commonly studied and emulated CAs live in 2D space–a grid.</p>
+
+<p>Each  cell in this grid has 8 neighbors surrounding them. The evolution of this cell depends only on how many of these neighbors are alive or dead. A cell is said to exist if it is alive, and is considered nonesxistant otherwise (even though the point on the grid still exists). In this version of a CA–modled after Conway’s Game of Life, the most famous CA–a cell survies if there are 2 or 3 neighbors and dies otherwise; a dead cell comes to life if there are exactly 3 neighbors and stays dead otherwise. In the nomenclature of CA this ruleset is <strong>S23B3</strong>, or <em><strong>S</strong>urvives</em> with 2 or 3 neighbors, is <em><strong>B</strong>orn</em> with exactly 3 neighbors, and dies otherwise.</p>
+
+<h3 id="in-this-repo">In this repo:</h3>
+
+<p>There are two main files, <strong>elemCA.py</strong> and <strong>conwayCA.js</strong>. The first is meant to be run locally and prints a rule 110 elementary cellular automata to the terminal for 300 generations. The second is a <em>p5.js</em> script that runs in the <em>index.html</em> file. Additionally there is a test script in the <em>deprecated</em> folder for trying dynamic printing to the terminal.</p>
+</article>
+    <span class="seperator"></span>
+</main>
+
+<div class="bottom-wrapper">
+    
+        <a href="/2019/07/10/hydro.html" class="suggested" id="newer"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/erode.png);
+            background-size: cover;
+            background-position: center;">
+            <span class="arrow" id="left">&#10092;</span>
+            <div>
+                <span>newer</span>
+                <h5>Droplet Based Erosion for Procedural Terrain Heightmaps</h5>
+            </div>
+        </a>
+    
+    
+        <a href="/2019/04/08/noise.html" class="suggested" id="older"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/perlin.png);
+            background-size: cover;
+            background-position: center;">
+            <div>
+                <span>older</span>
+                <h5>Random Noise Generation in Python with Numpy & Vectorization</h5>
+            </div>
+            <span class="arrow" id="right">&#10093;</span>
+        </a>
+    
+</div>
+
+
+        <footer>
+    <div class="footer-image"></div>
+    <div class="footer-wrapper">
+        <a href="/about.html" class="avatar">
+            <img src="/assets/images/img.png" alt="avatar" class="avatar-image">
+            <div class="outline"></div>
+        </a>
+        <a href="https://github.com/csaddison/csaddison.github.io" target="_blank" rel="noopener noreferrer">&lt;/&gt; by conner</a>
+        <span>#021821</span>
+    </div>
+</footer>
+
+    </body>
+</html>

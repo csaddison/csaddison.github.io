@@ -60,27 +60,16 @@
     <img src="/assets/images/eca.png" alt="" class="hero-im">
     <div class="hero-grad"></div>
 </div> -->
-    <article><h6 id="coding-an-elementary-cellular-automaton--conways-game-of-life">Coding an Elementary Cellular Automaton &amp; Conway’s Game of Life</h6>
+    <h1 id="sub">Coding an Elementary Cellular Automaton & Conway's Game of Life</h1>
+    <article><h3 id="what-is-a-cellular-automaton">What is a cellular automaton?</h3>
 
-<p><img src="images/eca.png" alt="eca" /></p>
+<p>A cellular automaton (CA) is an evolving, “living” system that forms complex and repetetive behavior from a few simple rules. Basically the entire world of a CA evolves every timestep, with each cell either surviving, dying, or coming to life depending on the state of the previous generation. A CA can really live in N-dimensional space, but the most commonly studied and emulated CAs live in 2D space–a grid.</p>
 
-<hr />
+<p>Each  cell in this grid has 8 neighbors surrounding them. The evolution of this cell depends only on how many of these neighbors are alive or dead. A cell is said to exist if it is alive, and is considered nonesxistant otherwise (even though the point on the grid still exists). In this version of a CA–modled after Conway’s Game of Life, the most famous CA–a cell survies if there are 2 or 3 neighbors and dies otherwise; a dead cell comes to life if there are exactly 3 neighbors and stays dead otherwise. In the nomenclature of CA this ruleset is <strong>S23B3</strong>, or <em><strong>S</strong>urvives</em> with 2 or 3 neighbors, is <em><strong>B</strong>orn</em> with exactly 3 neighbors, and dies otherwise.</p>
 
 <h3 id="in-this-repo">In this repo:</h3>
 
 <p>There are two main files, <strong>elemCA.py</strong> and <strong>conwayCA.js</strong>. The first is meant to be run locally and prints a rule 110 elementary cellular automata to the terminal for 300 generations. The second is a <em>p5.js</em> script that runs in the <em>index.html</em> file. Additionally there is a test script in the <em>deprecated</em> folder for trying dynamic printing to the terminal.</p>
-
-<hr />
-
-<h3 id="what-is-a-cellular-automaton">What is a cellular automaton?</h3>
-
-<p>A cellular automaton (CA) is an evolving, “living” system that forms complex and repetetive behavior from a few simple rules. Basically the entire world of a CA evolves every timestep, with each cell either surviving, dying, or coming to life depending on the state of the previous generation. A CA can really live in N-dimensional space, but the most commonly studied and emulated CAs live in 2D space–a grid.</p>
-
-<p>Each  cell in this grid has 8 neighbors surrounding them <em>(fig. 1)</em>. The evolution of this cell depends only on how many of these neighbors are alive or dead. A cell is said to exist if it is alive, and is considered nonesxistant otherwise (even though the point on the grid still exists). In this version of a CA–modled after Conway’s Game of Life, the most famous CA–a cell survies if there are 2 or 3 neighbors and dies otherwise; a dead cell comes to life if there are exactly 3 neighbors and stays dead otherwise. In the nomenclature of CA this ruleset is <strong>S23B3</strong>, or <strong><em>S**urvives</em> with 2 or 3 neighbors<em>, is **</em>B</strong>orn* with exactly 3 neighbors, and dies otherwise.</p>
-
-<hr />
-
-<h3 id="changes">Changes</h3>
 </article>
     <span class="seperator"></span>
 </main>

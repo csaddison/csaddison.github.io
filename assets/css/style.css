@@ -10,6 +10,7 @@ html {
   box-sizing: border-box; }
 
 body {
+  overflow-x: hidden;
   background-color: #201020;
   font-family: 'Raleway', sans-serif;
   color: #58B789;
@@ -28,7 +29,7 @@ main:not(.container) {
   margin-top: 60px; }
 
 article {
-  width: 45em;
+  width: 720px;
   margin: auto; }
 
 a {
@@ -139,8 +140,7 @@ h1, h2, h3, h4, h5, h6 {
   .blog-post .blog-title {
     color: #e6e6e6;
     font-size: 24px;
-    font-weight: 900;
-    height: 3em; }
+    font-weight: 900; }
   .blog-post .post-date {
     display: block;
     font-size: 14px;
@@ -168,8 +168,7 @@ h1, h2, h3, h4, h5, h6 {
 #banner {
   height: 100%; }
   #banner .blog-title {
-    font-size: 32px;
-    height: 4em; }
+    font-size: 32px; }
   #banner .post-date {
     font-size: 14px; }
 
@@ -581,21 +580,36 @@ nav {
 
 .page {
   display: flex;
-  flex-direction: column;
-  align-items: center; }
+  flex-direction: column; }
   .page .seperator {
     width: 50em;
     margin-top: 70px;
     margin-bottom: 400px; }
+  .page #sub {
+    font-size: 2em;
+    color: #B666B8;
+    margin-bottom: 1em;
+    margin-left: 45px; }
   .page article {
     color: #e6e6e6; }
+    .page article .caption {
+      font-size: 18px;
+      display: block;
+      color: rgba(182, 102, 184, 0.7);
+      text-align: center;
+      font-style: italic;
+      margin-top: -2em;
+      margin-bottom: 2em; }
     .page article .task-list {
       font-family: monospace;
+      font-size: 16px;
       background-color: rgba(182, 102, 184, 0.1);
       border-radius: 25px;
       padding: 15px;
       margin: 25px;
       width: fit-content; }
+      .page article .task-list p {
+        font-size: 16px; }
       .page article .task-list input {
         margin: 5px;
         margin-right: 4ch; }
@@ -611,7 +625,7 @@ nav {
       margin-left: 4ch;
       font-family: 'Montserrat', sans-serif;
       color: #B666B8;
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 700;
       padding: 2em; }
       .page article blockquote p:first-of-type::before, .page article blockquote p:first-of-type:after {
@@ -647,7 +661,9 @@ nav {
         padding-top: 15px;
         color: #F5FF87; }
     .page article p {
-      line-height: 1.4em; }
+      font-size: 20px;
+      line-height: 1.4em;
+      margin-bottom: 2em; }
     .page article pre {
       font-family: monospace;
       font-size: 16px;
@@ -674,7 +690,7 @@ nav {
       font-size: 16px; }
     .page article h2 {
       color: #F5FF87;
-      font-size: 2.5em;
+      font-size: 3em;
       margin-bottom: 0.2em;
       padding: 15px;
       padding-left: 30px;
@@ -685,21 +701,23 @@ nav {
       color: #e6e6e6;
       margin-bottom: 0.2em; }
     .page article h3 {
-      font-size: 2.5em;
+      font-size: 3.0em;
       color: #58B789;
       margin-bottom: 0.2em; }
     .page article h4 {
-      font-size: 2em;
+      font-size: 2.4em;
       color: #B666B8;
       margin-bottom: 0.2em; }
     .page article h5 {
-      font-size: 1.5em;
+      font-size: 1.8em;
       color: #58B789;
       margin-bottom: 0.2em; }
     .page article h6 {
-      font-size: 1.2em;
+      font-size: 1.5em;
       color: #B666B8;
       margin-bottom: 0.2em; }
+    .page article h1, .page article h2, .page article h3, .page article h4, .page article h5, .page article h6 {
+      margin-top: 2rem; }
     .page article hr {
       width: 1280px;
       margin: 0.2em;
@@ -722,7 +740,9 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
     width: 1280px;
-    margin-left: -280px; }
+    margin-left: -280px;
+    margin-bottom: 50px;
+    margin-top: 50px; }
     .page .gallery img {
       margin: 20px;
       width: 380px;

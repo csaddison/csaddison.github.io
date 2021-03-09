@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        
+
+        
+            <script>
+                MathJax = {
+                    tex: {
+                      inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    //   skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                    },
+                    svg: {
+                      fontCache: 'global'
+                    }
+                  };
+            </script>
+            <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        <title>
+            
+                Asymptotic Analysis & its Applications in Financial Derivative Pricing of European Options with Stochastic Volatility // CSA
+            
+        </title>
+
+    </head>
+    <body>
+
+        <header>
+    <div class="header-image"></div>
+    <nav>
+        <div class="header-wrapper">
+            <a href="/#feature" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="/blog.html" class="push">blog</a>
+            <a href="/about.html">about</a>
+            <a href="/style.html">style guide</a>
+        </div>
+        <span class="seperator"></span>
+    </nav>
+</header>
+        <main class="page">
+    <div class="title-wrapper">
+    <div class="hero" style="background:
+            linear-gradient(180deg,
+                            rgba(121, 68, 122, 0.125) 0%,
+                            rgba(32, 16, 32, 0.25) 100%),
+                            url(/assets/images/vol_surf.png);
+            background-position: center;
+            background-size: cover;">
+    </div>
+    <div class="title-block">
+        <span id="date">Feb 2, 2017</span>
+        <h1>Asymptotic Analysis & its Applications in Financial Derivative Pricing of European Options with Stochastic Volatility</h1>
+        <div class="cloud">
+            <span id="posted-tags">tagged with</span>
+            
+                <span class="tag">finance</span>
+            
+                <span class="tag">math</span>
+            
+                <span class="tag">complex analysis</span>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="gradient-wrapper">
+    <img src="/assets/images/vol_surf.png" alt="" class="hero-im">
+    <div class="hero-grad"></div>
+</div> -->
+    <h1 id="sub"></h1>
+    <article><p>\title{Asymptotic Analysis \&amp; its Applications in Financial Derivative Pricing of European Options with Stochastic Volatility}</p>
+
+<p>\author{Conner Addison}</p>
+
+<p>\begin{document}
+\captionsetup[figure]{labelfont={bf},labelformat={default},labelsep=period,name={Fig.}}
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+The Black-Scholes model of evaluating call and put options presumes constant volatility, an assumption that has turned out to be incorrect. This paper discusses how to amend corrections to the model by finding approximations to the stochastic differential equations instead of solving them explicitly. To do this we will utilize asymptotic analysis to find a series for the corrections to the Black-Scholes model while maintaining invariance with respect to the stochasticity of the volatility. Not only is this asymptotic approach easier than finding an explicit solution, it is also considerably faster at approximating than other solution methods, such as the Monte Carlo method.
+\vspace{5pt}
+\end{abstract}
+  \end{@twocolumnfalse}
+]
+\maketitle</p>
+
+<p>\section{Introduction}</p>
+
+<p>Securities trade dates back to as early as the 13th century when European governments began selling their debt to wealthy patrons, quickly filling the government’s coffers while agreeing to slowly return the money, with interest. This type of security is called a bond. In general, there are three forms of securities: bonds, which signifies a debt owed to an investor by a government or corporation; equity, which indicates that the investor has partial ownership of whatever they hold equity in; and derivatives, the main focus of this paper, which give an investor the option to access a security at later date at a fixed price. Currently, the market for financial derivatives is valued at $ 1.2 quadrillion, dwarfing the entire globe’s Gross Domestic Product over twenty-fold \cite{aol}.</p>
+
+<p>Financial derivatives comprise most of the complicated and fast moving world of securities investment. They derive–hence their name–their value from an underlying asset, usually a stock or bond but also currencies, commodities, and loan interest rates. At their heart, derivatives are essentially a tradeable contract. When two parties enter a derivative agreement, the seller–the investor or market that holds the underlying asset–gives the buyer the option to buy (referred to as a ‘call’) or sell (referred to as a ‘put’) the asset at fixed price on a later date. For this reason, financial derivatives are often called options. American options allow the buyer to exercise their option at any time before the maturity date, while European options stipulate that the option can only me exercised at the maturity date. This paper, like the research it is based on, deals with the latter.</p>
+
+<p>Unlike cash instruments, which take their value directly from the market–think of common stocks–derivatives represent a buyer’s bet or ‘hedge’ that the price will increase (for a call) or decrease (for a put). Hedges are specific bets aimed at reducing the risk inherent in investment by, in the case of financial derivatives, paying a small premium for option countering one’s main position. The cost of this premium is determined by the asset’s probable payoff, which the Black-Scholes formula calculates as a function of an asset’s volatility.</p>
+
+<p>\begin{table}
+\caption*{Option Pricing Table}
+\label{vol tab}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\hline
+Option &amp; $\sigma\Uparrow$ &amp; $\sigma\Downarrow$ &amp; $\tau\Uparrow$ &amp; $\tau\Downarrow$ &amp; $S_t\Uparrow$ &amp; $S_t\Downarrow$ <br />
+\hline
+\hline
+Call &amp; + &amp; - &amp; + &amp; - &amp; + &amp; - <br />
+\hline
+Put &amp; + &amp; - &amp; + &amp; - &amp; - &amp; + <br />
+\hline
+\end{tabular}
+\captionof{figure}{This table shows some common variables–$\sigma$, the volatility; $\tau$, the time until maturity; and $S_t$, the price of the underlying asset at time t–and the effect of their change on the options price. }
+\end{table}</p>
+
+<p>In the Black-Scholes model, the volatility is considered constant and its value is calculated from the actual observed prices of the asset underlying the derivative. However, Black and Scholes idealization that the volatility is constant is incorrect and their model has a significant drawback due to the fact that it has to be consistently re-calibrated to account for the implied volatility skew. Recent models fix this issue by allowing volatility to vary over time; what’s known as stochastic behavior. While there isn’t yet a consensus on the best way to model the stochastic differential equations and the subsequent corrections to the Black-Scholes formula \cite{lorig}, many mathematicians and financial economists have accomplished what this paper will demonstrate, using asymptotic analysis to approximate the corrections to the existing payoff models.</p>
+
+<p>\section{Methods}</p>
+
+<p>\subsection{Black \&amp; Scholes Approach}</p>
+
+<p>In 1973, Fischer Black and Myron Scholes published their seminal paper, “The Pricing of Options and Corporate Liabilities,” \cite{black-scholes}  which produced a partial differential equation whose solution models the payoff $h(S)=(S_T-K)$ of European options with a known maturity date $T$ and a known strike price $K$ (the price the option gives the buyer a right to). Let $S$ be the price of the underlying asset given at a time $t$ by the following stochastic differential equation (SDE)</p>
+
+<p>\begin{equation}
+\label{stochastic de}
+\frac{dS_t}{S_t} = r dt + \sigma dW_t
+\end{equation}</p>
+
+<p>\noindent
+with Brownian motion $W$ with respect to a historical probability measure $P$. Let $u(S, t)$ be the value of the option at time $t$. Then the Black-Scholes equation \cite{black-scholes} is given by</p>
+
+<p>\begin{equation}
+\label{bs pde}
+\frac{du}{dt} + \frac{1}{2}\sigma^2 S^2 \frac{d^2u}{dS^2} +rS\frac{du}{dS} -ru = 0
+\end{equation}</p>
+
+<p>\noindent
+where $r$ is the risk-neutral rate–a rate of guaranteed risk-free return such as a government issued bond–and $\sigma$ is the market’s calculated volatility. $N$ denotes the cumulative distribution function of each of the distribution functions $d_+$ and $d_-$. The CDF returns the probability that a random variable will take a value equal to or less than that of its argument. $N(d_+)$ and $N(d_-)$ represent the probabilities that the option expires in the money; that is, that at it’s maturity time $T$, $K&gt;S_T$ and the option will be exercised. To simplify further notation we will perform a change of variables such that:</p>
+
+<p>\begin{align<em>}
+&amp;\tau=(T-t)&amp;  &amp;x= ln(S)&amp; &amp;k = ln(K)
+\end{align</em>}</p>
+
+<p>\noindent
+With this new notation, the Black-Scholes PDE can be solved with a solution for call and put options given by:</p>
+
+<p>\begin{align}
+\begin{split}
+\label{bs formulas}
+C(x, \tau)=&amp;e^{-r\tau}[e^x N(d_+) - e^k N(d_-)] <br />
+P(x, \tau) =&amp;e^{-r\tau}[e^k N(-d_-) - e^x N(-d_+)] <br />
+d_\pm&amp;= \frac{x-k \pm \frac{1}{2}\sigma^2\tau}{\sigma \sqrt{\tau}} <br />
+\end{split}
+\end{align}</p>
+
+<p>One of the discoveries of the Black-Scholes model is that the price of a derivative is not dependent \cite{lorig} the risk-neutral rate for no-arbitrage situations, meaning that in an idealized perfectly efficient marketplace there are no discrepancies in asset prices to profit off of. Therefore, for any fixed values of $(\tau, x, k)$ the only variable in the options price is the volatility and the price of the call option–which will be the focus of this paper–can be re-written as a function of volatility only:</p>
+
+<p>\begin{equation<em>}
+\label{bs formula}
+u(\sigma)=e^xN(d_+(\sigma)) - e^kN(d_-(\sigma))
+\end{equation</em>}</p>
+
+<p>\noindent
+Analogously written \cite{lorig} as</p>
+
+<p>\begin{align}
+\begin{split}
+\label{conditional ft}
+u(\sigma)=&amp; \mathbb{E}^\mathbb{Q}[S_T-K|ln(S)=x] <br />
+=&amp;\mathbb{E}^\mathbb{Q}[h(S_t)|\mathcal{F}_T] <br />
+\end{split}
+\end{align}</p>
+
+<p>\noindent
+where $\mathbb{E}$ is the conditional expectation with respect to a new probability measure $\mathbb{Q}$ under which the underlying price is martingale, meaning the next expected value in the stochastic process is equal to the current value. More generally, $\mathbb{Q}$ being martingale implies that there is no drift or growth rate and so $r=0$. The conditional expectation $\mathbb{E}[X|H]$ of a variable $X$ is the average of of $X$ over all outcomes of $H$. Equation \ref{conditional ft} gives a value for $h(S_T)$ based on the average of $\mathcal{F}_T$, the historical prices of the market up to time $T$.</p>
+
+<p>Although Black and Scholes originally presumed volatility was constant, even they soon realized their idealization was incorrect. The Black-Scholes model leads to discrepancies in options pricing represented by the implied volatility skew [Fig. \ref{vol_surf}] and the ‘volatility smile’ [Fig. \ref{smile}].</p>
+
+<p>\begin{figure}
+\includegraphics[width= \linewidth]{vol_surf.png}
+\caption{The implied volatility skew is a drawback of the Black-Scholes model. Under their assumption, $\sigma$ should be constant and the volatility surface should be flat. Instead, it varies with days till maturity (DTM) and the price of the underlying asset, represented by the parameter $\Delta$ which measures the impact of a change in $S$.}
+\label{vol_surf}
+\end{figure}</p>
+
+<p>These discrepancies are accounted for by amending the Black-Scholes formula to allow the volatility to vary with time. This turns equation \ref{stochastic de} into</p>
+
+<p>\begin{equation<em>}
+\label{sig stochastic}
+\frac{dS_t}{S_t}=\sigma_t dW_t
+\end{equation</em>}</p>
+
+<p>\noindent
+where our Brownian motion is now under $\mathbb{Q}$. We can further specify that the volatility $\sigma_t$ fluctuates stochastically as a function of a diffusion process $Y$ such that $\sigma_t = \sigma(Y_t)$. Then, letting $S_t = e^X_t$ we are left with two stochastic processes</p>
+
+<p>\begin{align}
+\begin{split}
+\label{stochastic volatility}
+dX_t &amp;= -\frac{1}{2}\sigma^2(Y_t)dt+\sigma(Y_t)dW_t^\mathbb{Q} <br />
+dY_t&amp;= \alpha(Y_t)dt +\beta(Y_t)dB_t^\mathbb{Q} <br />
+dW_t^\mathbb{Q}B_t^\mathbb{Q}&amp;=\rho dt <br />
+\end{split}
+\end{align}</p>
+
+<p>\noindent
+where $B^\mathbb{Q}$ is a Brownian motion under $\mathbb{Q}$ correlated to $W^\mathbb{Q}$ by $|\rho| &lt; 1$. It is standard \cite{lorig} to consider only $\rho &lt;0$ to match the observed behavior that as volatility increases asset prices decrease [Fig. \ref{vol tab}].</p>
+
+<p>We will seek to find solutions for these equations such that $u(I)=u$ in equation \ref{bs formula}, where $I$ is the volatility parameter that causes the Black-Scholes formula to the match observed price. Solutions to equation \ref{conditional ft} can be obtained by brute force Monte Carlo methods, plugging in random inputs to slowly piece together a continuous distribution, but this procedure is especially inefficient at the iterative process of recalibrating the Black-Scholes model for the implied volatility. Therefore we want to find a suitable approximation for $u(t,x,y)$ that corrects for the volatility skew without explicitly resolving for a new value of $\sigma$.</p>
+
+<p>\subsection{Examples of Asymptotic Analysis}</p>
+
+<p>Finding a solution to our quandary is accomplished with the application of asymptotic analysis, specifically perturbation theory. The key element of asymptotic analysis is that it finds and approximation for a function in a limiting behavior, either towards infinity or zero, without requiring the expansion to converge. Formally, a series is an asymptotic expansion of a function $f(x)$ if, for every term additional term in the expansion, the ratio of the error to the last term goes to 0 as $x\to\infty$ \cite{boas}. Denoted mathematically:</p>
+
+<script type="math/tex; mode=display">f(x) \sim \sum_{n=0}^{\infty} \phi_n(x)</script>
+
+<p>\noindent
+where the $~$ denotes the asymptotic relationship if $\forall n=N$ where $N \in \mathbb{N}$</p>
+
+<script type="math/tex; mode=display">\left |f(x)-\sum_{n=0}^{\infty} \phi_n(x) \right | \div \phi_N(x) \to 0</script>
+
+<p>\noindent
+as $N\to\infty$. The requirements for an asymptotic expansion as $x\to 0$ are similar:</p>
+
+<script type="math/tex; mode=display">f(x)\sim\sum_{n=0}^{\infty} a_n x_n</script>
+
+<p>\noindent
+if $\forall n=N$ where $N \in \mathbb{N}$</p>
+
+<script type="math/tex; mode=display">\left |f(x)-\sum_{n=0}^{\infty} a_n x_n \right | \div x_N \to 0</script>
+
+<p>\noindent
+A demonstration of the usefulness of asymptotic analysis is to solve for Stirling’s Formula, which approximates $n!$ As $n\to\infty$. Let $\Gamma(z)$ be the Gamma function $\Gamma(z)=\int_{0}^{\infty}t^{z-1}e^{-t}dt$ such that $\Gamma(z+1) = z!$, then</p>
+
+<script type="math/tex; mode=display">z!=\Gamma(z+1)=\int_{0}^{\infty}t^{z}e^{-t}dt</script>
+
+<p>\noindent
+as $z\to\infty$. Since $a^b=e^{bln(a)}$ then</p>
+
+<script type="math/tex; mode=display">\Gamma(z+1)=\int_{0}^{\infty}e^{-t+zln(t)}dt</script>
+
+<p>\noindent
+Substitute $t=zu$ and $dt=zdu$ so that</p>
+
+<script type="math/tex; mode=display">=ze^{zln(z)}\int_{0}^{\infty}e^{-z(u-ln(u)}dt</script>
+
+<p>\noindent
+Now we try and find the minimum of $f(u)=u-ln(u)$ so that we can find the maximum value of $e^{-z(u-ln(u)}$. Plugging in the result of that we get</p>
+
+<p><script type="math/tex">=zz^ze^{-z}\int_{0}^{\infty}e^{-z(\frac{1}{2}x^2}dt</script>
+<script type="math/tex">\sim z^ze^{-z}\sqrt{2\pi z}\left(1+\frac{1}{12z}+...\right)</script></p>
+
+<p>\begin{figure}
+\includegraphics[width= \linewidth]{stirlings}
+\caption{A comparision of Stirling Approximation with the Gamma Function and the factorial $n!$.}
+\label{stirling}
+\end{figure}</p>
+
+<p>\noindent
+The derivation above is the same as one demonstrated during lecture.</p>
+
+<p>Now we have both of the SDE’s  that govern the dynamics of our asset price and volatility as well the methodology to create an accurate approximation of the SDE’s about the price given by the original Black-Scholes formula.</p>
+
+<p>\section{Results}</p>
+
+<p>We left off with equations \ref{conditional ft} and \ref{stochastic volatility}, whose solutions we are trying to approximate. Equation \ref{stochastic volatility} is an example of a Ornstein–Uhlenbeck (OU) process \cite{fouque1998}; a stochastic process that meets the requirement to be both a Gaussian and Markov process. All a Markov process means is that the next state of the process can be predicted solely on the current state of the process, while the Gaussian condition implies that our domain is continuous instead of discrete.  An OU process is ergodic, meaning that in the long run it tends towards its own average. This property allows us to introduce a small perturbation $\epsilon$ in our variables that allows us to determine the correction terms for the Black-Scholes model as $\epsilon\to0$.</p>
+
+<p>We can represent the payoff as in \ref{conditional ft} by</p>
+
+<p>\begin{equation}
+\label{expected epsilon}
+u^\epsilon(t,x,y)=\mathbb{E}^\mathbb{Q}[\varphi(X_t^\epsilon|X_t^\epsilon=x,Y_t^\epsilon=y]
+\end{equation}</p>
+
+<p>\noindent
+where we can replace $\mathcal{F}_T$ by $(X_t, Y_t)$ due to their Markov properties. It doesn’t matter what time we start at, $(X,Y)$ will eventually revert to their average values. Just as equation \ref{conditional ft} corresponds to equation \ref{stochastic volatility},equation \ref{expected epsilon} corresponds to the SDE’s</p>
+
+<p>\begin{align}
+\begin{split}
+\label{eps de}
+dX_t^\epsilon&amp;=rX_t^\epsilon dt +e^{Y_t^\epsilon}X_t^\epsilon d W_t^\mathbb{Q} <br />
+dY_t^\epsilon&amp;= \frac{\alpha}{\epsilon}(Y_t^\epsilon)dt + \frac{\beta}{\sqrt{\epsilon}}\left(\rho d W_t^\mathbb{Q} +\sqrt{1-\rho^2}dB_t^\mathbb{Q}\right)
+\end{split}
+\end{align}</p>
+
+<p>According to numerous sources \cite{fouque1998,fouque2003,lorig}, there need be only mild boundary conditions on $X$, $Y$, and $u(t,x,y)$ such that $u(t,x,y)$ is the solution to the Kolmogorov backward equation</p>
+
+<p>\begin{equation}
+\label{kbe}
+\mathcal{L}^\epsilon u^\epsilon(t,x,y)
+\end{equation}</p>
+
+<p>\noindent
+where $u(T,x,y)=\varphi(X_T)$ and the operator $\mathcal{L}^\epsilon$ is defined \cite{fouque2003} as</p>
+
+<p>\begin{align}
+\begin{split}
+\label{operators}
+\mathcal{L}^\epsilon&amp;=\frac{1}{\epsilon}\mathcal{L}_0 + \frac{1}{\sqrt{\epsilon}}\mathcal{L}_1 +\mathcal{L}_2 <br />
+\mathcal{L}_0&amp;=\nu^2\frac{d^2}{dy^2}-y\frac{d}{dy}<br />
+\mathcal{L}_1&amp;=\sqrt{2}\rho\nu \sigma(y) \frac{d^2}{dxdy}-\sqrt{2}\Lambda(y)\frac{d}{dy} <br />
+\mathcal{L}_2&amp;=\frac{d}{dt}+\frac{1}{2}\sigma^2(y)\frac{d^2}{dx^2}+\left(r-\frac{1}{2}\sigma^2(y)\right)\frac{d}{dx}-r
+\end{split}
+\end{align}</p>
+
+<p>\noindent
+where $\mathcal{L}_2$ is also the Black-Scholes operator defined in equation \ref{bs pde}  function $\sigma(y)$ is the volatility as a function of Y, as mentioned earlier in this paper. $\Lambda$ and $\nu$ (referred to as Vega in financial situation) are called the Greeks, and are measures in finance relating to the impact of a change in $\sigma$ for $\nu$ and a ratio given by $\frac{\delta u(t,x,y)}{\delta S_t}$. The Kolmogorov backward equation (KBE) allows us to find probabilistically whether a given variable x will be in a subset of states B at a later time t. As far as it is concerned for this paper, the KBE just allows us to progress towards approximating a simpler solution for $u(t,x,y)$. Since equation \ref{eps de} is first-order with respect to $\sqrt{\epsilon}$, we can expand for $u(t,x,y)$ in terms of that:</p>
+
+<p>\begin{equation}
+\label{expansion}
+u^\epsilon(t,x,y)=u_0+\sqrt{\epsilon}u_1+\epsilon u_2+ \epsilon^\frac{3}{2}u_3(t,x,y)+…
+\end{equation}</p>
+
+<p>\noindent
+We want this expansion to be independent of the stochastic volatility so its easier to solve, thus we let</p>
+
+<p>\begin{equation}
+\label{approx}
+Q^\epsilon(t,x)\sim u_0(t,x,y)+ \frac{1}{\sqrt{\epsilon}}u_1(t,x,y)
+\end{equation}</p>
+
+<p>\noindent
+as $\epsilon \to 0$. By substituting equations \ref{expansion} and \ref{approx} into equation \ref{operators} we can create an series that by definition satisfies the KBE and the associated boundary conditions. That expression is given by</p>
+
+<p>\begin{multline}
+\label{series}
+\frac{1}{\epsilon}\mathcal{L}_0 u_0 + \frac{1}{\sqrt{\epsilon}}\left(\mathcal{L}_0 u_1 +\mathcal{L}_1 u_0 \right) \</p>
+<ul>
+  <li>\left(\mathcal{L}_0 Q_2 + \mathcal{L}_1 u_1 +\mathcal{L}_2 u_0 \right) \</li>
+  <li>\sqrt{\epsilon}\left(\mathcal{L}_0 Q_3 + \mathcal{L}_1 Q_2 + \mathcal{L}_2 u_1 \right) + …
+\end{multline}</li>
+</ul>
+
+<p>All that is left at this point is to reduce equation \ref{series} to a more informative state. To do this we will adopt the methodology from Fouque (2003) \cite{fouque2003} and show that equating the first four leading terms of our expansion to zero proves equation \ref{approx}. If we consider our first term</p>
+
+<script type="math/tex; mode=display">\mathcal{L}_0 u_0=0</script>
+
+<p>\noindent
+where $\mathcal{L}_0$ only has derivatives with respect to $y$, we can quickly see that if our proposed solution is not a function of $y$ that the first term must equal 0. Similarly, $\mathcal{L}_1$ differentiates with respect to $y$, so</p>
+
+<script type="math/tex; mode=display">\mathcal{L}_0 u_1 +\mathcal{L}_1 u_0=0</script>
+
+<p>\noindent
+is also true. The third and fourth terms</p>
+
+<script type="math/tex; mode=display">\mathcal{L}_0 Q_2 + \mathcal{L}_1 u_1 +\mathcal{L}_2 u_0=0</script>
+
+<p>\noindent
+and</p>
+
+<script type="math/tex; mode=display">\mathcal{L}_0 Q_3 + \mathcal{L}_1 Q_2 + \mathcal{L}_2 u_1=0</script>
+
+<p>\noindent
+reduce to Poisson Equations \cite{fouque2003} for $Q_2$ and $Q_3$, respectively. Solving these a solution $\Phi$ gives conditions that give numerical meaning to our final approximation [Fig. \ref{examp}], which is successfully independent of $y$:
+\begin{multline}
+\sqrt{\epsilon}u_1=-\tau \biggl(V_3^\epsilon \frac{d^3}{dx^3} + (V_2^\epsilon -3V_3^\epsilon) \frac{d^2}{dx^2} \</p>
+<ul>
+  <li>(2V_3^\epsilon -V_2^\epsilon) \frac{d}{dx}\biggr)u_0 
+\end{multline}</li>
+</ul>
+
+<p>\noindent
+where</p>
+
+<p>\begin{align}
+\begin{split}
+V_{2,3}^\epsilon&amp;=\sqrt{\epsilon}\nu_{2,3} <br />
+\nu_2 &amp;= \frac{\nu}{\sqrt{2}}\left(s\rho \sigma(\Phi) - \Lambda (\Phi) \right) <br />
+\nu_3 &amp;= \frac{\rho \nu}{\sqrt{2}}\sigma(\Phi)
+\end{split}
+\end{align}</p>
+
+<p>\section{Discussion}</p>
+
+<p>We have shown that the Black-Scholes model \ref{bs formulas} for determining European call prices is deficient in that it lead to the implied volatility skew [Figs. \ref{vol_surf}, \ref{smile}]. We have also summarized the efforts of others to reconcile the Black-Scholes discrepancy by allowing for time-varying volatility. While this fixes the model, it makes it far harder to solve the SDE’s. However, we have shown that by applying perturbation theory–asymptotic analysis as $\epsilon\to 0$–it is possible to find an accurate [Fig. \ref{examp}] approximation for the price u(t,x,y) that is invariant with respect to y. This invariance makes the asymptotic approach to the issue of implied volatility skew substantially easier and faster to solve than previous methods, such as the Monte Carlo brute force method of recalibration. There is still far more to be researched in this field, as most of the sources used for this project struggled to account for real world intricacies such as transaction costs, arbitrage situations, and American options.</p>
+
+<p>\section{Acknowledgements}</p>
+
+<p>I’d like to thank Devin Thatcher and David Grant for their help in editing this paper as well as providing feedback during the research stage.</p>
+
+<p>\begin{figure<em>}
+\includegraphics[width= \linewidth]{smile}
+\caption{This is the ‘volatility smile’ for the S\&amp;P500, and the skew is clearly noticeable as you tend away from the at-the-money point, $S_T = K$.}
+\label{smile}
+\end{figure</em>}</p>
+
+<p>\begin{figure<em>}
+\includegraphics[width= \linewidth]{num_ex}
+\caption{This is the graph of a numerical example of the asymptotic analysis compared to the calculated data. Here, the input parameters are $\epsilon=\frac{1}{200}$, $\nu=\frac{1}{\sqrt{2}}$, $\rho = -.2$, and $r=.04$. The parameters for the asymptotic expansion are $\sigma=.165$, $V_2^\epsilon=-3.30/times10^{-4}$, and $V_3^\epsilon=8.48\times10^{-5}$. This example was taken from Fouque (2003) \cite{fouque2003}}
+\label{examp}
+\end{figure</em>}</p>
+</article>
+    <span class="seperator"></span>
+</main>
+
+<div class="bottom-wrapper">
+    
+        <a href="/2018/06/08/polarize.html" class="suggested" id="newer"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/diag.jpg);
+            background-size: cover;
+            background-position: center;">
+            <span class="arrow" id="left">&#10092;</span>
+            <div>
+                <span>newer</span>
+                <h5>Lasers and Lab Reports a.k.a. Playing with Polarizers</h5>
+            </div>
+        </a>
+    
+    
+</div>
+
+
+        <footer>
+    <div class="footer-image"></div>
+    <div class="footer-wrapper">
+        <a href="/about.html" class="avatar">
+            <img src="/assets/images/img.png" alt="avatar" class="avatar-image">
+            <div class="outline"></div>
+        </a>
+        <a href="https://github.com/csaddison/csaddison.github.io" target="_blank" rel="noopener noreferrer">&lt;/&gt; by conner</a>
+        <span>#021821</span>
+    </div>
+</footer>
+
+    </body>
+</html>

@@ -23,3 +23,14 @@
 // canvas {
 //     position: relative;
 // }
+
+
+
+function scrollDelay() {
+    setTimeout(scrollDown, 3000);
+    function scrollDown() {
+        window.scrollTo(0, 850);
+    }
+}
+
+window.onload = scrollDelay;

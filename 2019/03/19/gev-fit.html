@@ -51,7 +51,7 @@
             linear-gradient(180deg,
                             rgba(121, 68, 122, 0.125) 0%,
                             rgba(32, 16, 32, 0.25) 100%),
-                            url(/assets/images/NLL.png);
+                            url(/assets/images/possible_fits.png);
             background-position: center;
             background-size: cover;">
     </div>
@@ -74,76 +74,57 @@
 </div>
 
 <!-- <div class="gradient-wrapper">
-    <img src="/assets/images/NLL.png" alt="" class="hero-im">
+    <img src="/assets/images/possible_fits.png" alt="" class="hero-im">
     <div class="hero-grad"></div>
 </div> -->
-    <h1 id="sub"></h1>
-    <article><p>\date{March 22, 2019}</p>
+    <h1 id="sub">Condensed matter signal processing and posterior PDF's</h1>
+    <article><p>Extracting a signal from a sea of background noise? Look no further. We have simulated data of electron/positron pair production <script type="math/tex">A \xrightarrow{} e^+ e^-</script>. We know that our signal mass is in the vicinity of 155 GeV, and we also know that our resolution is limited to ±5 Gev. Therefore our signal probability density function (PDF) is a Gaussian distribution with <script type="math/tex">\mu = 155Gev</script>, <script type="math/tex">\sigma=5Gev</script>. Our raw data and our expected signal can be seen in figure \ref{signal}. Now we want to fit a background PDF to filter how many signal versus background hits we actually measured.</p>
 
-<p>\title{Fitting Experimental Data in Python with Minuit}</p>
+<h3 id="background-pdf-selection">Background PDF Selection</h3>
 
-<p>\author{Conner Addison}</p>
+<p><img src="/assets/images/signal.png" alt="signal" /></p>
 
-<p>\begin{document}
-\captionsetup[figure]{labelfont={bf},labelformat={default},labelsep=period,name={Fig.}}
-\twocolumn[
-  \begin{@twocolumnfalse}
-    \maketitle
-      \end{@twocolumnfalse}
-]
-\maketitle</p>
-
-<p>\section{Expected Signal}</p>
-
-<p>In this exercise we’re trying to extract a signal from a sea of background noise. We have simulated data of electron/positron pair production $A \xrightarrow{} e^+ e^-$. We know that our signal mass is in the vicinity of $155 GeV$, and we also know that our resolution is limited to $\pm 5 Gev$. Therefore our signal probability density function (PDF) is a Gaussian distribution with $\mu = 155Gev$, $\sigma=5Gev$. Our raw data and our expected signal can be seen in figure \ref{signal}. Now we want to fit a background PDF to filter how many signal versus background hits we actually measured.</p>
-
-<p>\begin{figure}
-\includegraphics[width= \linewidth]{signal.png}
-\caption{Raw data with superimposed signal.}
-\label{signal}
-\end{figure}</p>
-
-<p>\section{Background PDF Selection}</p>
-
-<p>We have many options for our background PDF but by looking at our binned data we know we want something that is decreasing throughout the domain $x \in [100, 200]$. Here I looked at 3 common families of distributions–the gamma distribution:</p>
+<p>We have many options for our background PDF but by looking at our binned data we know we want something that is decreasing throughout the domain <script type="math/tex">x \in [100, 200]</script>. Here I looked at 3 common families of distributions–the gamma distribution:</p>
 
 <script type="math/tex; mode=display">f(x; k, \theta) = \frac{x ^ {k-1} e ^ {-x / \theta}}{\theta ^ k \Gamma (k)}</script>
 
-<p>Where $k$ is the “shape parameter” and $\theta$ is the “scale parameter”. The function $\Gamma(k)$ represents the gamma function. I also tried a log-normal distribution:</p>
+<p>Where <script type="math/tex">k</script> is the “shape parameter” and <script type="math/tex">\theta</script> is the “scale parameter”. The function <script type="math/tex">\Gamma(k)</script> represents the gamma function. I also tried a log-normal distribution:</p>
 
 <script type="math/tex; mode=display">f(x;\mu, \sigma) = \frac{1}{x \cdot \sigma \sqrt{2 \pi}} \cdot exp \Big[ - \frac{(\ln(x) - \mu)^2} {2 \sigma^2} \Big]</script>
 
-<p>Where $\mu$, $\sigma$ follow the conventions of being the mean and standard deviation, but for the distribution pre-logarithm. Finally I looked at a simple, linear, monotonically decreasing distribution:</p>
+<p>Where <script type="math/tex">\mu</script>, <script type="math/tex">\sigma</script> follow the conventions of being the mean and standard deviation, but for the distribution pre-logarithm. Finally I looked at a simple, linear, monotonically decreasing distribution:</p>
 
 <script type="math/tex; mode=display">f(x;b, c) = \frac{2 (b-x)}{b^2}</script>
 
-<p>Where $b$ is the x-intercept of the distribution. These distributions cover a wide variety of potential PDF shapes. An exponential distribution is a subset of the gamma distribution so this choice of PDFs cover that possibility as well. The linear PDF was chosen not because I thought it would be particularly accurate, but more as a test to see how close such a simple, 1-parameter choice would be.</p>
+<p>Where <script type="math/tex">b</script> is the x-intercept of the distribution. These distributions cover a wide variety of potential PDF shapes. An exponential distribution is a subset of the gamma distribution so this choice of PDFs cover that possibility as well. The linear PDF was chosen not because I thought it would be particularly accurate, but more as a test to see how close such a simple, 1-parameter choice would be.</p>
 
-<p>In all cases the PDFs are normalized as a function of their parameters on the interval $x \in [100, 200]$ by using the CDF at the endpoints:
-<script type="math/tex">CDF(x_{max}) - CDF(x_{min})</script>
-However, there were issues with the gamma distribution not being normalized so instead I normalized it manually by summing over our list of $f(x;k,\theta)$  points and then dividing each point by the total sum, as seen below. This ensures that the points sum to 1 on our interval.</p>
+<p>In all cases the PDFs are normalized as a function of their parameters on the interval <script type="math/tex">x \in [100, 200]</script> by using the CDF at the endpoints:</p>
 
-<p>\begin{lstlisting}[language=Python]
-def gamma_norm(i,k,theta):
-  norm = []
-  for n in x:
-    norm.append(gamma_pdf(n,k,theta))
-  return gamma_pdf(i,k,theta)/math.fsum(norm)
-\end{lstlisting}</p>
+<script type="math/tex; mode=display">CDF(x_{max}) - CDF(x_{min})</script>
 
-<p>\section{Optimizing Distributions}</p>
+<p>However, there were issues with the gamma distribution not being normalized so instead I normalized it manually by summing over our list of <script type="math/tex">f(x;k,\theta)</script>  points and then dividing each point by the total sum.</p>
 
-<p>\begin{figure<em>}
-\includegraphics[width= \textwidth]{possible_fits.png}
-\caption{Top row is PDFs for initial parameter guesses. Bottom row is the PDFs}
-\label{pdf}
-\end{figure</em>}</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gamma_norm</span><span class="p">(</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">theta</span> <span class="p">):</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">gamma_pdf</span><span class="p">(</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">theta</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">gamma_pdf</span><span class="p">(</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">theta</span> <span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">fsum</span><span class="p">(</span> <span class="n">norm</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>This ensures that the points sum to 1 on our interval.</p>
+
+<h3 id="optimizing-distributions">Optimizing Distributions</h3>
+
+<p><img src="/assets/images/possible_fits.png" alt="fits" />
+<span class="caption">
+Top row is PDFs for initial parameter guesses. Bottom row is the PDFs
+</span></p>
 
 <p>We now want to optimize the parameters of our PDFs to get closer to our measured values. We want to do this while separating our signal and background events so we can report the number of true signal hits. To do this we minimize a Negative Log Likelihood (NLL) fit:</p>
 
 <script type="math/tex; mode=display">-\ln(\mathcal{L}) = S + B - \sum \ln(S \cdot s(x_i) + B \cdot b(x_i))</script>
 
-<p>Where $S$, $B$ are the number of signal and background events, and $s(x_i)$, $b(x_i)$ are the probability of the signal and background events at $x = x_i$. Feeding this into Minuit to be minimized requires the addition of initial guesses for the $\alpha_0$ of the parameters as well as step specification for the $\Delta \alpha$ of all of the parameters. For all of the optimizations I initialized $S$ and $B$ as:</p>
+<p>Where <script type="math/tex">S</script>, <script type="math/tex">B</script> are the number of signal and background events, and <script type="math/tex">s(x_i)</script>, <script type="math/tex">b(x_i)</script> are the probability of the signal and background events at <script type="math/tex">x = x_i</script>. Feeding this into Minuit to be minimized requires the addition of initial guesses for the <script type="math/tex">\alpha_0</script> of the parameters as well as step specification for the <script type="math/tex">\Delta \alpha</script> of all of the parameters. For all of the optimizations I initialized <script type="math/tex">S</script> and <script type="math/tex">B</script> as:</p>
 
 <script type="math/tex; mode=display">S_0, B_0 = 40, 160</script>
 
@@ -153,13 +134,18 @@ def gamma_norm(i,k,theta):
 <script type="math/tex">\mu_0,\sigma_0 = 5, 0.7</script>
 <script type="math/tex">b_0 = 200</script></p>
 
-<p>respectively. The step size was picked as either 1, 0.1, or 0.5 for most variables, except for $b_0$ which had a step size of 5 and for $S_0$ and $B_0$ which both had steps of 2. The PDFs for both the initial guesses and the optimized fits can be seen superimposed onto the data in figure \ref{pdf}, and the resulting optimized parameters can be seen in the table in figure 3.</p>
+<p>respectively. The step size was picked as either 1, 0.1, or 0.5 for most variables, except for <script type="math/tex">b_0</script> which had a step size of 5 and for <script type="math/tex">S_0</script> and <script type="math/tex">B_0</script> which both had steps of 2. The PDFs for both the initial guesses and the optimized fits can be seen superimposed onto the data in figure \ref{pdf}, and the resulting optimized parameters can be seen in the table in figure 3.</p>
 
-<p>\section{Final Results}</p>
+<h3 id="final-results">Final Results</h3>
+
+<p><img src="/assets/images/gev-tab.png" alt="data" />
+<span class="caption">
+The final parameters and error for the optimized gamma, log-normal, and linear distributions.
+</span></p>
 
 <p>After optimization I was impressed by how well the linear PDF seemed to fit the data. I was equally as disappointed how poorly the gamma distribution fit. Since the gamma family covers a wide range of functions, including a decaying exponential, I expected that a minimization would be able to find some form that was a better fit. In fact, it seems to me that the shape of the “optimized” gamma PDF is actually farther from the data’s shape than the initial guess. Perhaps Minuit got stuck in a local minimum during it’s optimization. If there was more time I would like to continue playing with the gamma distribution. A different initial guess or a larger step size could potentially help it escape the minima it’s stuck in.</p>
 
-<p>The linear and log-normal distribution were incredibly similar, with both reporting $\sim$20 $S$ hits. I believe that the log-normal distribution matches the shape of the data slightly better, even though the linear fit technically achieved better accuracy (uncertainty of $\pm 7.7$ on the linear fit versus $\pm 8.2$ on the log fit). The background noise appears to be more constant at lower mass, which the log-normal fit captures better than the linear fit; it would require more data to see which fit truly excels.</p>
+<p>The linear and log-normal distribution were incredibly similar, with both reporting ~20 <script type="math/tex">S</script> hits. I believe that the log-normal distribution matches the shape of the data slightly better, even though the linear fit technically achieved better accuracy (uncertainty of ±7.7 on the linear fit versus ±8.2 on the log fit). The background noise appears to be more constant at lower mass, which the log-normal fit captures better than the linear fit; it would require more data to see which fit truly excels.</p>
 
 <p>The final log-normal background PDF is given by:</p>
 
@@ -172,67 +158,14 @@ def gamma_norm(i,k,theta):
 
 <p>where I took the floor of each number since it’s impossible to observe a partial event. The last uncertainty is taken from the standard deviation of the $S$ count from all three distributions. The standard deviation between $S_{gamma}, S_{log}, S_{lin}$ was $\sigma = 6.01$, but since two of the three distributions were in almost exact agreement with each other, I only took two-thirds of that error as my systematic uncertainty. An additional good sign is that the $S_{log}+B_{log} =200$ which is the correct number of total events, indicating our PDFs are properly normalized in relation to each other.</p>
 
-<p>\begin{table}[t]
-\caption*{Optimized Fit Parameters}
-\label{param}
-\begin{tabularx}{\linewidth}{|X|X|X|}
-\hline
-\multicolumn{3}{|c|}{Gamma Distribution}<br />
-\hline
-Param. &amp; Val. &amp; Err. <br />
-\hline
-\hline
-$S$ &amp; 10.2 &amp; 8.49 <br />
-\hline
-$B$ &amp; 190 &amp; 16 <br />
-\hline
-$k$ &amp; 28.4 &amp; 2.98 <br />
-\hline
-$\theta$ &amp; 4.94 &amp; 0.525 <br />
-\hline
-\hline
-\multicolumn{3}{|c|}{Log-Normal Distribution}<br />
-\hline
-Param. &amp; Val. &amp; Err. <br />
-\hline
-\hline
-$S$ &amp; 21.2 &amp; 8.2 <br />
-\hline
-$B$ &amp; 179 &amp; 15 <br />
-\hline
-$\mu$ &amp; 4.77 &amp; 0.202 <br />
-\hline
-$\sigma$ &amp; 0.471 &amp; 0.235 <br />
-\hline
-\hline
-\multicolumn{3}{|c|}{Linear Distribution}<br />
-\hline
-Param. &amp; Val. &amp; Err. <br />
-\hline
-\hline
-$S$ &amp; 20.2 &amp; 7.68 <br />
-\hline
-$B$ &amp; 180 &amp; 14.8 <br />
-\hline
-$b$ &amp; 229 &amp; 14.5 <br />
-\hline
-\end{tabularx}
-\captionof{figure}{The final parameters and error for the optimized gamma, log-normal, and linear distributions.}
-\end{table}</p>
+<h3 id="in-review">In Review</h3>
 
-<p>\balance</p>
+<p>We tested the gamma, log-normal, and linear distributions against our data and each other to see which distribution best fit our data. The log-normal fit best, with the linear distribution fitting almost equally as well. The gamma distribution did surprisingly bad. Our final distribution was the normalized sum of our <script type="math/tex">\mu, \sigma = 155, 5</script> Gaussian and <script type="math/tex">\mu, \sigma = 4.7 \pm 0.2, 0.47 \pm 0.2</script> log-normal. This resulted in <script type="math/tex">S = 21 \pm 8 \pm 4</script> predicted signal events.</p>
 
-<p>\section{Conclusion}</p>
-
-<p>We tested the gamma, log-normal, and linear distributions against our data and each other to see which distribution best fit our data. The log-normal fit best, with the linear distribution fitting almost equally as well. The gamma distribution did surprisingly bad. Our final distribution was the normalized sum of our $\mu, \sigma = 155, 5$ Gaussian and $\mu, \sigma = 4.7 \pm 0.2, 0.47 \pm 0.2$ log-normal. This resulted in $ S = 21 \pm 8 \pm 4$ predicted signal events.</p>
-
-<p>\begin{figure}[b]
-\includegraphics[width= \linewidth]{NLL.png}
-\caption{Final choice for the optimized PDF. The result was a log-normal distribution combined with our Gaussian signal. This predicts $S = 21$ event results.}
-\label{nll}
-\end{figure}</p>
-
-<p>\end{document}</p>
+<p><img src="/assets/images/NLL.png" alt="NLL" />
+<span class="caption">
+Final choice for the optimized PDF. The result was a log-normal distribution combined with our Gaussian signal. This predicts <script type="math/tex">S = 21</script> event results.
+</span></p>
 </article>
     <span class="seperator"></span>
 </main>

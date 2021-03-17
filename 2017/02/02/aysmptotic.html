@@ -86,9 +86,43 @@
 
 <p>Unlike cash instruments, which take their value directly from the market–think of common stocks–derivatives represent a buyer’s bet or ‘hedge’ that the price will increase (for a call) or decrease (for a put). Hedges are specific bets aimed at reducing the risk inherent in investment by, in the case of financial derivatives, paying a small premium for option countering one’s main position. The cost of this premium is determined by the asset’s probable payoff, which the Black-Scholes formula calculates as a function of an asset’s volatility.</p>
 
-<p><img src="/assets/images/option-tab.png" alt="option calls" />
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th style="text-align: right">σ ⇑</th>
+      <th style="text-align: right">σ ⇓</th>
+      <th style="text-align: right">τ ⇑</th>
+      <th style="text-align: right">τ ⇓</th>
+      <th style="text-align: right">S<sub>t</sub> ⇑</th>
+      <th style="text-align: right">S<sub>t</sub> ⇓</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Call</td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+    </tr>
+    <tr>
+      <td>Put</td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+      <td style="text-align: right"><span style="color: orangeRed;">$-</span></td>
+      <td style="text-align: right"><span style="color: lime;">$+</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
 <span class="caption">
-This table shows some common variables–$\sigma$, the volatility; <script type="math/tex">\tau</script>, the time until maturity; and <script type="math/tex">S_t</script>, the price of the underlying asset at time t–and the effect of their change on the options price
+This table shows some common variables–<script type="math/tex">\sigma</script>, the volatility; <script type="math/tex">\tau</script>, the time until maturity; and <script type="math/tex">S_t</script>, the price of the underlying asset at time t–and the effect of their change on the options price
 </span></p>
 
 <p>In the Black-Scholes model, the volatility is considered constant and its value is calculated from the actual observed prices of the asset underlying the derivative. However, Black and Scholes idealization that the volatility is constant is incorrect and their model has a significant drawback due to the fact that it has to be consistently re-calibrated to account for the implied volatility skew. Recent models fix this issue by allowing volatility to vary over time; what’s known as stochastic behavior. While there isn’t yet a consensus on the best way to model the stochastic differential equations and the subsequent corrections to the Black-Scholes formula \cite{lorig}, many mathematicians and financial economists have accomplished what this paper will demonstrate, using asymptotic analysis to approximate the corrections to the existing payoff models.</p>
@@ -161,6 +195,11 @@ dW_t^\mathbb{Q}B_t^\mathbb{Q}&=\rho dt \\
 \mid \rho \mid < 1 %]]></script>. It is standard \cite{lorig} to consider only <script type="math/tex">% <![CDATA[
 \rho <0 %]]></script> to match the observed behavior that as volatility increases asset prices decrease [Fig. \ref{vol tab}].</p>
 
+<p><img src="/assets/images/smile.png" alt="volatility smile" />
+<span class="caption">
+This is the ‘volatility smile’ for the S&amp;P500, and the skew is clearly noticeable as you tend away from the at-the-money point, <script type="math/tex">S_T = K</script>
+</span></p>
+
 <p>We will seek to find solutions for these equations such that <script type="math/tex">u(I)=u</script> in equation \ref{bs formula}, where <script type="math/tex">I</script> is the volatility parameter that causes the Black-Scholes formula to the match observed price. Solutions to equation \ref{conditional ft} can be obtained by brute force Monte Carlo methods, plugging in random inputs to slowly piece together a continuous distribution, but this procedure is especially inefficient at the iterative process of recalibrating the Black-Scholes model for the implied volatility. Therefore we want to find a suitable approximation for <script type="math/tex">u(t,x,y)</script> that corrects for the volatility skew without explicitly resolving for a new value of <script type="math/tex">\sigma</script>.</p>
 
 <h3 id="aysmptotic-perturbation-theory">Aysmptotic Perturbation Theory</h3>
@@ -198,12 +237,12 @@ dW_t^\mathbb{Q}B_t^\mathbb{Q}&=\rho dt \\
 <p><script type="math/tex">=zz^ze^{-z}\int_{0}^{\infty}e^{-z(\frac{1}{2}x^2}dt</script>
 <script type="math/tex">\sim z^ze^{-z}\sqrt{2\pi z}\left(1+\frac{1}{12z}+...\right)</script></p>
 
+<p>The derivation above is the same as one demonstrated during lecture.</p>
+
 <p><img src="/assets/images/stirlings.png" alt="stirling" />
 <span class="caption">
 A comparision of Stirling Approximation with the Gamma Function and the factorial $n!$.
 </span></p>
-
-<p>The derivation above is the same as one demonstrated during lecture.</p>
 
 <p>Now we have both of the SDE’s  that govern the dynamics of our asset price and volatility as well the methodology to create an accurate approximation of the SDE’s about the price given by the original Black-Scholes formula.</p>
 
@@ -293,17 +332,13 @@ V_{2,3}^\epsilon&=\sqrt{\epsilon}\nu_{2,3} \\
 
 <h3 id="in-review">In Review</h3>
 
-<p>We have shown that the Black-Scholes model \ref{bs formulas} for determining European call prices is deficient in that it lead to the implied volatility skew [Figs. \ref{vol_surf}, \ref{smile}]. We have also summarized the efforts of others to reconcile the Black-Scholes discrepancy by allowing for time-varying volatility. While this fixes the model, it makes it far harder to solve the SDE’s. However, we have shown that by applying perturbation theory–asymptotic analysis as <script type="math/tex">\epsilon\to 0</script>–it is possible to find an accurate [Fig. \ref{examp}] approximation for the price <script type="math/tex">u(t,x,y)</script> that is invariant with respect to y. This invariance makes the asymptotic approach to the issue of implied volatility skew substantially easier and faster to solve than previous methods, such as the Monte Carlo brute force method of recalibration. There is still far more to be researched in this field, as most of the sources used for this project struggled to account for real world intricacies such as transaction costs, arbitrage situations, and American options.</p>
-
-<p><img src="/assets/images/smile.png" alt="volatility smile" />
-<span class="caption">
-This is the ‘volatility smile’ for the S&amp;P500, and the skew is clearly noticeable as you tend away from the at-the-money point, <script type="math/tex">S_T = K</script>
-</span></p>
-
 <p><img src="/assets/images/num_ex.png" alt="" />
 <span class="caption">
 This is the graph of a numerical example of the asymptotic analysis compared to the calculated data. Here, the input parameters are <script type="math/tex">\epsilon=\frac{1}{200}</script>, <script type="math/tex">\nu=\frac{1}{\sqrt{2}}</script>, <script type="math/tex">\rho = -.2</script>, and <script type="math/tex">r=.04</script>. The parameters for the asymptotic expansion are <script type="math/tex">\sigma=.165</script>, <script type="math/tex">V_2^\epsilon=-3.30/times10^{-4}</script>, and <script type="math/tex">V_3^\epsilon=8.48\times10^{-5}</script>. This example was taken from Fouque (2003) \cite{fouque2003}}
 </span></p>
+
+<p>We have shown that the Black-Scholes model \ref{bs formulas} for determining European call prices is deficient in that it lead to the implied volatility skew [Figs. \ref{vol_surf}, \ref{smile}]. We have also summarized the efforts of others to reconcile the Black-Scholes discrepancy by allowing for time-varying volatility. While this fixes the model, it makes it far harder to solve the SDE’s. However, we have shown that by applying perturbation theory–asymptotic analysis as <script type="math/tex">\epsilon\to 0</script>–it is possible to find an accurate [Fig. \ref{examp}] approximation for the price <script type="math/tex">u(t,x,y)</script> that is invariant with respect to y. This invariance makes the asymptotic approach to the issue of implied volatility skew substantially easier and faster to solve than previous methods, such as the Monte Carlo brute force method of recalibration. There is still far more to be researched in this field, as most of the sources used for this project struggled to account for real world intricacies such as transaction costs, arbitrage situations, and American options.</p>
+
 </article>
     <span class="seperator"></span>
 </main>

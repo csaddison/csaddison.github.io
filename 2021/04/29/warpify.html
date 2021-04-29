@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        
+
+        
+
+        <title>
+            
+                Scripting time-warp effects with Warpify // CSA
+            
+        </title>
+
+    </head>
+    <body>
+
+        <header>
+    <div class="header-image"></div>
+    <nav>
+        <div class="header-wrapper">
+            <a href="/#feature" id="csa"></a>
+            <!-- <a href="conneraddison.com">HOME</a> -->
+            <a href="/blog.html" class="push">blog</a>
+            <a href="/about.html">about</a>
+            <a href="/style.html">style guide</a>
+        </div>
+        <span class="seperator"></span>
+    </nav>
+</header>
+        <main class="page">
+    <div class="title-wrapper">
+    <div class="hero" style="background:
+            linear-gradient(180deg,
+                            rgba(121, 68, 122, 0.125) 0%,
+                            rgba(32, 16, 32, 0.25) 100%),
+                            url(/assets/images/head_warp.png);
+            background-position: center;
+            background-size: cover;">
+    </div>
+    <div class="title-block">
+        <span id="date">Apr 29, 2021</span>
+        <h1>Scripting time-warp effects with Warpify</h1>
+        <div class="cloud">
+            <span id="posted-tags">tagged with</span>
+            
+                <span class="tag">cinematography</span>
+            
+                <span class="tag">python</span>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="gradient-wrapper">
+    <img src="/assets/images/head_warp.png" alt="" class="hero-im">
+    <div class="hero-grad"></div>
+</div> -->
+    <h1 id="sub">Building a custom CLI in Python to recreate effects from Kubrik films</h1>
+    <article><p><img src="/assets/images/head_gif.gif" alt="Warpify Demo" /></p>
+
+<p>Warpify provides a simple CLI to warp and save videos. Simply launch the application with <code class="highlighter-rouge">python warpify.py</code> to get started. Alternatively, warpify also provides direct access to it’s inner functions for use in your own projects. A simple case could look like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">warpify</span> <span class="kn">import</span> <span class="n">SlitScan</span>
+
+<span class="n">warp</span> <span class="o">=</span> <span class="n">SlitScan</span><span class="p">(</span><span class="s">'path/to/file.avi'</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">warp</span><span class="o">.</span><span class="n">GenerateLinearMask</span><span class="p">(</span><span class="n">displacement</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="s">'vertical'</span><span class="p">)</span>
+<span class="n">warp</span><span class="o">.</span><span class="n">Slice</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+<span class="n">warp</span><span class="o">.</span><span class="n">Render</span><span class="p">(</span><span class="s">'warped.avi'</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="changelog">Changelog:</h4>
+<p>Warpify v0.9 is still in beta stages and the next update will have better error handling.</p>
+</article>
+    <span class="seperator"></span>
+</main>
+
+<div class="bottom-wrapper">
+    
+    
+        <a href="/2020/02/09/evolution.html" class="suggested" id="older"
+            style="background:
+                linear-gradient(    180deg,
+                        rgba(121, 68, 122, 0.45) 0%,
+                        rgba(32, 16, 32, 0.9) 100%),
+                url(/assets/images/animals.png);
+            background-size: cover;
+            background-position: center;">
+            <div>
+                <span>older</span>
+                <h5>Population Busts and Survival of the Most Reproductive</h5>
+            </div>
+            <span class="arrow" id="right">&#10093;</span>
+        </a>
+    
+</div>
+
+
+        <footer>
+    <div class="footer-image"></div>
+    <div class="footer-wrapper">
+        <a href="/about.html" class="avatar">
+            <img src="/assets/images/img.png" alt="avatar" class="avatar-image">
+            <div class="outline"></div>
+        </a>
+        <a href="https://github.com/csaddison/csaddison.github.io" target="_blank" rel="noopener noreferrer">&lt;/&gt; by conner</a>
+        <span>#021821</span>
+    </div>
+</footer>
+
+    </body>
+</html>

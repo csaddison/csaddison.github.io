@@ -57,12 +57,68 @@
 </div>
     
         
-<a  href="/2020/02/09/evolution.html"
+<a  href="/2021/04/29/warpify.html"
 class="blog-post"
 
 
         id="feature"
         style="grid-area: feature;
+    
+
+display: flex;
+background:
+linear-gradient(    180deg,
+                    rgba(121, 68, 122, 0.45) 0%,
+                    rgba(32, 16, 32, 0.9) 100%),
+url(/assets/images/head_warp.png);
+background-position: center;
+background-size: cover;">
+
+    <span class="post-date">Apr 29, 2021</span>
+    
+    
+    
+    
+    
+            <h4 class="blog-title">Scripting time-warp effects with Warpify</h4>
+            <p class="excerpt"> 
+
+Warpify provides a simple CLI to warp and save videos. Simply launch the application with python warpify.py to get started. Alternatively, warpify also provides direct access to it’s inner functions for use in your own projects. A simple case could look like this:
+
+from warpify import SlitScan
+
+warp = SlitScan('path/to/file.avi')
+mask = warp.GenerateLinearMask(displacement=30, 'vertical')
+warp.Slice(mask)
+warp.Render('warped.avi', fps=60)
+
+
+
+
+Changelog:
+Warpify v0.9 is still in beta stages and the next update will have better error handling.
+</p>
+        
+        
+
+    <div class="tag-span">
+        
+            <span class="tag">cinematography</span>
+        
+            <span class="tag">python</span>
+        
+    </div>
+
+</a>
+
+
+        
+<a  href="/2020/02/09/evolution.html"
+class="blog-post"
+
+
+        id="banner"
+        style="grid-area: banner;
     
 
 display: flex;
@@ -80,8 +136,8 @@ background-size: cover;">
     
     
     
-            <h4 class="blog-title">Population Busts and Survival of the Most ...</h4>
-            <p class="excerpt"> Simulating a complex process such as natural selection can be relatively simple to compute, with very few rules and a completely passive role in the evolution. The feature image shows a stable population of 130 after 2,700 generations. Each animal moves around their environment in search of food. If food is within their sense radius, the animal moves directly towards it; otherwise, they moves randomly. Every time step, they lose some of their health. If they can find and eat food, they prolong their life and replication chances. However, if their health drops to zero they die and become food themselves. Each animal also has a chance to replicate every time step, provided the animal is healthy enough. If an animal reproduces, the offspring inherit its parents traits: speed, size, color, and sense; however, these traits are slightly mutated during replication to give rise to new, genetically distinct species. After...</p>
+            <h4 class="blog-title">Population Busts and Survival of the Most Reproductive</h4>
+            <p class="excerpt"> Simulating a complex process such as natural selection can be relatively simple to compute, with very few rules and a completely passive role in the evolution. The feature image shows a stable population of 130 after 2,700 generations. Each animal moves around their environment in search of food. If food is within their sense radius, the animal moves directly towards it; otherwise, they moves randomly. Every time step, they lose some of their health. If they can find and eat food, they prolong their life and replication chances. However, if their health drops to zero they die and become food...</p>
         
         
 
@@ -101,9 +157,9 @@ background-size: cover;">
 class="blog-post"
 
 
-        id="banner"
-        style="grid-area: banner;
-    
+        id="post-3"
+        style="grid-area: post-3;
+
 
 display: flex;
 background:
@@ -120,10 +176,9 @@ background-size: cover;">
     
     
     
-            <h4 class="blog-title">Simulating Erosion on Procedurally Generated Terrain</h4>
-            <p class="excerpt"> Creating procedural terrain from heghtmaps is easily done with classical noise generators and fractal noise, however making that terrain look realistic is often much harder. Depending on how many octaves you use, proceduarly generated terrain is either too smooth or too jagged to look realistic. Natural terrain has a combination of these features, with rocky mountains and flatter rolling plains. A leading cause of this is the natural erosion of the terrain over time, especially due to rivers and rainfall. By simulating thousands of rain droplets we can compute the movement of the water accross the land and erode and...</p>
-        
-        
+            <h4 class="blog-title">Simulating Erosion on Procedurally Generated Te...</h4>
+            <p class="excerpt"> Creating procedural terrain from heghtmaps is easily done with classical noise generators and fractal noise, however making that terrain look realistic is often much harder. Depending on how many octaves...</p>
+    
 
     <div class="tag-span">
         
@@ -141,8 +196,8 @@ background-size: cover;">
 class="blog-post"
 
 
-        id="post-3"
-        style="grid-area: post-3;
+        id="post-4"
+        style="grid-area: post-4;
 
 
 display: flex;
@@ -180,8 +235,8 @@ background-size: cover;">
 class="blog-post"
 
 
-        id="post-4"
-        style="grid-area: post-4;
+        id="post-5"
+        style="grid-area: post-5;
 
 
 display: flex;
@@ -219,8 +274,8 @@ background-size: cover;">
 class="blog-post"
 
 
-        id="post-5"
-        style="grid-area: post-5;
+        id="post-6"
+        style="grid-area: post-6;
 
 
 display: flex;
@@ -247,45 +302,6 @@ background-size: cover;">
             <span class="tag">math</span>
         
             <span class="tag">fractals</span>
-        
-    </div>
-
-</a>
-
-
-        
-<a  href="/2019/03/19/gev-fit.html"
-class="blog-post"
-
-
-        id="post-6"
-        style="grid-area: post-6;
-
-
-display: flex;
-background:
-linear-gradient(    180deg,
-                    rgba(121, 68, 122, 0.45) 0%,
-                    rgba(32, 16, 32, 0.9) 100%),
-url(/assets/images/possible_fits.png);
-background-position: center;
-background-size: cover;">
-
-    <span class="post-date">Mar 19, 2019</span>
-    
-    
-    
-    
-    
-            <h4 class="blog-title">Fitting Experimental Data in Python with Minuit</h4>
-            <p class="excerpt"> Extracting a signal from a sea of background noise? Look no further. We have simulated data of electron/positron pair production . We know that our signal mass is in the...</p>
-    
-
-    <div class="tag-span">
-        
-            <span class="tag">physics</span>
-        
-            <span class="tag">signal processing</span>
         
     </div>
 
@@ -335,6 +351,10 @@ background-size: cover;">
             <a href="" class="tag">generative</a>
         
             <a href="" class="tag">biological</a>
+        
+            <a href="" class="tag">cinematography</a>
+        
+            <a href="" class="tag">python</a>
         
     </div>
 </div>
